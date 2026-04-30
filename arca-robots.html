@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="ARCA Robotics — Building the Future">
 <meta property="og:description" content="Meet Osiris. The world's most advanced autonomous humanoid robot. Built for industrial environments, designed to work alongside humans.">
-<meta property="og:image" content="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-HQ-FOOTER.jpg">
+<meta property="og:image" content="/arca-robots/assets/site1/ARCA-HQ-FOOTER.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://arca-robotics.com">
@@ -19,12 +19,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ARCA Robotics — Building the Future">
 <meta name="twitter:description" content="Meet Osiris. The world's most advanced autonomous humanoid robot.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-HQ-FOOTER.jpg">
+<meta name="twitter:image" content="/arca-robots/assets/site1/ARCA-HQ-FOOTER.jpg">
 <!-- DNS prefetch for all external resources -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.babylonjs.com">
-<link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+<!-- dns-prefetch removed: assets now served locally -->
 <!-- Fonts: display=swap + only weights we use -->
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <!-- Babylon.js — defer, loaded only when Osiris section is visible (see JS) -->
@@ -3998,7 +3998,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- OSIRIS -->
   <a href="#" class="robot-menu-card" onclick="closeAllMenus(); openOsirisPage()">
     <img loading="lazy" class="robot-menu-img"
-      src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/OSIRIS.png"
+      src="/arca-robots/assets/site1/OSIRIS.png"
       alt="Osiris">
     <div class="robot-menu-info">
       <span class="robot-menu-number">01</span>
@@ -4011,7 +4011,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- KIRA -->
   <a href="#" class="robot-menu-card" onclick="closeAllMenus(); openKira()">
     <img loading="lazy" class="robot-menu-img"
-      src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA.png"
+      src="/arca-robots/assets/site1/KIRA.png"
       alt="Kira">
     <div class="robot-menu-info">
       <span class="robot-menu-number">02</span>
@@ -4024,7 +4024,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- ATLAS-7 -->
   <a href="#" class="robot-menu-card" onclick="closeAllMenus(); openAtlas()">
     <img loading="lazy" class="robot-menu-img"
-      src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ATLAS-7.png"
+      src="/arca-robots/assets/site1/ATLAS-7.png"
       alt="Atlas-7">
     <div class="robot-menu-info">
       <span class="robot-menu-number">03</span>
@@ -4037,7 +4037,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- REEF -->
   <a href="#" class="robot-menu-card" onclick="closeAllMenus(); openReef()">
     <img loading="lazy" class="robot-menu-img"
-      src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF.png"
+      src="/arca-robots/assets/site1/REEF.png"
       alt="Reef">
     <div class="robot-menu-info">
       <span class="robot-menu-number">04</span>
@@ -4053,7 +4053,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 ════════════════════════════════════════ -->
 <section id="hero">
   <video id="hero-video" autoplay muted loop playsinline preload="auto">
-    <source src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Osiris_HERO.mp4" type="video/mp4">
+    <source src="/arca-robots/assets/site1/Osiris_HERO.mp4" type="video/mp4">
   </video>
   <div id="hero-overlay"></div>
 
@@ -4161,28 +4161,28 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
         <span data-i18n="osiris_desc">The world's most advanced autonomous humanoid robot. Built for industrial environments, designed to work alongside humans — not replace them.</span>
       </p>
       <div class="spec-cards reveal reveal-delay-2">
-        <div class="spec-card" onclick="openSpecModal('AI Processing','120 TOPS','Onboard neural processing at 120 trillion operations per second. Real-time environment mapping and decision making in under 2ms latency.','https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Ai-Processing.mp4')">
+        <div class="spec-card" onclick="openSpecModal('AI Processing','120 TOPS','Onboard neural processing at 120 trillion operations per second. Real-time environment mapping and decision making in under 2ms latency.','/arca-robots/assets/site1/Ai-Processing.mp4')">
           <div class="spec-card-plus">+</div>
           <svg class="spec-card-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><line x1="6.5" y1="10" x2="6.5" y2="14"/><line x1="17.5" y1="10" x2="17.5" y2="14"/><line x1="10" y1="6.5" x2="14" y2="6.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
           <div class="spec-card-label" data-i18n="spec_ai_label">AI Processing</div>
           <div class="spec-card-value">120 TOPS</div>
           <div class="spec-card-desc" data-i18n="spec_ai_desc">Neural engine · Real-time mapping</div>
         </div>
-        <div class="spec-card" onclick="openSpecModal('Sensor Array','360° Vision','24 optical sensors, LiDAR, thermal imaging and haptic feedback across 180 touch points in each hand. Full environmental awareness.','https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Sensor-Array.mp4')">
+        <div class="spec-card" onclick="openSpecModal('Sensor Array','360° Vision','24 optical sensors, LiDAR, thermal imaging and haptic feedback across 180 touch points in each hand. Full environmental awareness.','/arca-robots/assets/site1/Sensor-Array.mp4')">
           <div class="spec-card-plus">+</div>
           <svg class="spec-card-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6a6 6 0 0 1 6 6"/><path d="M12 6a6 6 0 0 0-6 6"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
           <div class="spec-card-label" data-i18n="spec_sensor_label">Sensor Array</div>
           <div class="spec-card-value">360°</div>
           <div class="spec-card-desc" data-i18n="spec_sensor_desc">Vision · LiDAR · Thermal</div>
         </div>
-        <div class="spec-card" onclick="openSpecModal('Actuators','43 DOF','43 degrees of freedom with proprietary hydraulic-electric hybrid joints. Human-equivalent dexterity in both hands with sub-millimeter precision.','https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Actuators.mp4')">
+        <div class="spec-card" onclick="openSpecModal('Actuators','43 DOF','43 degrees of freedom with proprietary hydraulic-electric hybrid joints. Human-equivalent dexterity in both hands with sub-millimeter precision.','/arca-robots/assets/site1/Actuators.mp4')">
           <div class="spec-card-plus">+</div>
           <svg class="spec-card-icon" viewBox="0 0 24 24"><path d="M7 8l-4 4 4 4"/><path d="M17 8l4 4-4 4"/><path d="M9 4l-2 16"/><path d="M15 4l2 16"/><circle cx="12" cy="12" r="2"/></svg>
           <div class="spec-card-label" data-i18n="spec_act_label">Actuators</div>
           <div class="spec-card-value">43 DOF</div>
           <div class="spec-card-desc" data-i18n="spec_act_desc">Hybrid joints · Human dexterity</div>
         </div>
-        <div class="spec-card" onclick="openSpecModal('Power System','18h Runtime','Modular battery system with hot-swap capability. 18 hours of continuous operation on a single charge. Field-replaceable in under 90 seconds.','https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Power-System.mp4')">
+        <div class="spec-card" onclick="openSpecModal('Power System','18h Runtime','Modular battery system with hot-swap capability. 18 hours of continuous operation on a single charge. Field-replaceable in under 90 seconds.','/arca-robots/assets/site1/Power-System.mp4')">
           <div class="spec-card-plus">+</div>
           <svg class="spec-card-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           <div class="spec-card-label" data-i18n="spec_power_label">Power System</div>
@@ -4193,7 +4193,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     </div>
     <div class="osiris-right reveal reveal-delay-1">
       <video id="osiris-bg-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Osiris%20Bg.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/Osiris%20Bg.mp4" type="video/mp4">
       </video>
       <div class="osiris-video-overlay"></div>
       <div class="osiris-video-title">OSIRIS</div>
@@ -4216,35 +4216,35 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 
     <div class="ms-slide active">
       <video class="ms-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Munich.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/Munich.mp4" type="video/mp4">
       </video>
       <div class="ms-slide-overlay"></div>
     </div>
 
     <div class="ms-slide">
       <video class="ms-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Precision.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/Precision.mp4" type="video/mp4">
       </video>
       <div class="ms-slide-overlay"></div>
     </div>
 
     <div class="ms-slide">
       <video class="ms-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Osiris_Mission.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/Osiris_Mission.mp4" type="video/mp4">
       </video>
       <div class="ms-slide-overlay"></div>
     </div>
 
     <div class="ms-slide">
       <video class="ms-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Lab.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/Lab.mp4" type="video/mp4">
       </video>
       <div class="ms-slide-overlay"></div>
     </div>
 
     <div class="ms-slide">
       <video class="ms-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/%D0%9F%D0%BB%D0%B0%D0%BD%D0%B5%D1%82%D0%B0.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/%D0%9F%D0%BB%D0%B0%D0%BD%D0%B5%D1%82%D0%B0.mp4" type="video/mp4">
       </video>
       <div class="ms-slide-overlay"></div>
     </div>
@@ -4303,7 +4303,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 
         <!-- FRONT -->
         <div class="wc-front">
-          <img loading="lazy" class="wc-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/tennis-preview.jpg" alt="Osiris Tennis">
+          <img loading="lazy" class="wc-img" src="/arca-robots/assets/site1/tennis-preview.jpg" alt="Osiris Tennis">
           <div class="wc-front-overlay"></div>
           <div class="wc-front-content">
             <div class="wc-num">01</div>
@@ -4327,7 +4327,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
           </div>
           <div class="wc-back-right">
             <video class="wc-video" muted loop playsinline preload="none">
-              <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Tennis.mp4" type="video/mp4">
+              <source data-src="/arca-robots/assets/site1/Tennis.mp4" type="video/mp4">
             </video>
             <div class="wc-video-hint">hover to play</div>
           </div>
@@ -4341,7 +4341,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <div class="wc-inner">
 
         <div class="wc-front">
-          <img loading="lazy" class="wc-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/drive-preview.jpg" alt="Osiris Drive">
+          <img loading="lazy" class="wc-img" src="/arca-robots/assets/site1/drive-preview.jpg" alt="Osiris Drive">
           <div class="wc-front-overlay"></div>
           <div class="wc-front-content">
             <div class="wc-num">02</div>
@@ -4364,7 +4364,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
           </div>
           <div class="wc-back-right">
             <video class="wc-video" muted loop playsinline preload="none">
-              <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Drive.mp4" type="video/mp4">
+              <source data-src="/arca-robots/assets/site1/Drive.mp4" type="video/mp4">
             </video>
             <div class="wc-video-hint">hover to play</div>
           </div>
@@ -4378,7 +4378,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <div class="wc-inner">
 
         <div class="wc-front">
-          <img loading="lazy" class="wc-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/run-preview.jpg" alt="Osiris Run">
+          <img loading="lazy" class="wc-img" src="/arca-robots/assets/site1/run-preview.jpg" alt="Osiris Run">
           <div class="wc-front-overlay"></div>
           <div class="wc-front-content">
             <div class="wc-num">03</div>
@@ -4401,7 +4401,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
           </div>
           <div class="wc-back-right">
             <video class="wc-video" muted loop playsinline preload="none">
-              <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Run.mp4" type="video/mp4">
+              <source data-src="/arca-robots/assets/site1/Run.mp4" type="video/mp4">
             </video>
             <div class="wc-video-hint">hover to play</div>
           </div>
@@ -4546,17 +4546,17 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 
     <!-- Сцена 1: Intro відео — ноутбук відкривається, одноразово -->
     <video id="team-video-intro" muted playsinline preload="none">
-      <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Lamtop360.mp4" type="video/mp4">
+      <source data-src="/arca-robots/assets/site1/Lamtop360.mp4" type="video/mp4">
     </video>
 
     <!-- Сцена 2: Статичне фото (останній кадр відео) -->
     <img loading="lazy" id="team-still"
-         src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ZOOM_PHOTO.png"
+         src="/arca-robots/assets/site1/ZOOM_PHOTO.png"
          alt="ARCA Team">
 
     <!-- Сцена 3: Zoom loop відео -->
     <video id="team-video-loop" muted loop playsinline preload="none">
-      <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Zoom.mp4" type="video/mp4">
+      <source data-src="/arca-robots/assets/site1/Zoom.mp4" type="video/mp4">
     </video>
 
     <!-- Кнопка-слухавка (SVG handset) -->
@@ -4579,7 +4579,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="tm-pair photo-left">
     <div class="tm-card">
       <img loading="lazy" class="tm-photo"
-           src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%20%28CEO%29.png"
+           src="/arca-robots/assets/site1/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%20%28CEO%29.png"
            alt="Bohdan">
       <div class="tm-card-footer">
         <div class="tm-card-name">Bogdan H.</div>
@@ -4598,7 +4598,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="tm-pair photo-right">
     <div class="tm-card">
       <img loading="lazy" class="tm-photo"
-           src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9%20%28Head%20of%20Business%20Development%29.jpg"
+           src="/arca-robots/assets/site1/%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9%20%28Head%20of%20Business%20Development%29.jpg"
            alt="Oleksiy">
       <div class="tm-card-footer">
         <div class="tm-card-name">Oleksiy H.</div>
@@ -4617,7 +4617,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="tm-pair photo-left">
     <div class="tm-card">
       <img loading="lazy" class="tm-photo"
-           src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%D1%96%D1%8F%20%28Chief%20People%20Officer%29.jpg"
+           src="/arca-robots/assets/site1/%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%D1%96%D1%8F%20%28Chief%20People%20Officer%29.jpg"
            alt="Victoria">
       <div class="tm-card-footer">
         <div class="tm-card-name">Victoria K.</div>
@@ -4636,7 +4636,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="tm-pair photo-right">
     <div class="tm-card">
       <img loading="lazy" class="tm-photo"
-           src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Marcus%20Weber%20%28Chief%20Engineer%29.jpg"
+           src="/arca-robots/assets/site1/Marcus%20Weber%20%28Chief%20Engineer%29.jpg"
            alt="Marcus Weber">
       <div class="tm-card-footer">
         <div class="tm-card-name">Marcus Weber</div>
@@ -4670,10 +4670,10 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- OSIRIS -->
       <div class="robot-card" onclick="openOsirisPage()">
         <video class="robot-card-video" muted loop playsinline preload="none">
-          <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/OSIRIS-VID.mp4" type="video/mp4">
+          <source data-src="/arca-robots/assets/site1/OSIRIS-VID.mp4" type="video/mp4">
         </video>
         <img loading="lazy" class="robot-card-img"
-          src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/OSIRIS.png"
+          src="/arca-robots/assets/site1/OSIRIS.png"
           alt="Osiris">
         <div class="robot-card-overlay"></div>
         <div class="robot-card-name-bg">OSIRIS</div>
@@ -4687,10 +4687,10 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- KIRA -->
       <div class="robot-card" onclick="openKira()">
         <video class="robot-card-video" muted loop playsinline preload="none">
-          <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA-VID.mp4" type="video/mp4">
+          <source data-src="/arca-robots/assets/site1/KIRA-VID.mp4" type="video/mp4">
         </video>
         <img loading="lazy" class="robot-card-img"
-          src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA.png"
+          src="/arca-robots/assets/site1/KIRA.png"
           alt="Kira">
         <div class="robot-card-overlay"></div>
         <div class="robot-card-name-bg">KIRA</div>
@@ -4709,10 +4709,10 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- ATLAS-7 -->
       <div class="robot-card" onclick="openAtlas()">
         <video class="robot-card-video" muted loop playsinline preload="none">
-          <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ATLAS-7-VID.mp4" type="video/mp4">
+          <source data-src="/arca-robots/assets/site1/ATLAS-7-VID.mp4" type="video/mp4">
         </video>
         <img loading="lazy" class="robot-card-img"
-          src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ATLAS-7.png"
+          src="/arca-robots/assets/site1/ATLAS-7.png"
           alt="Atlas-7">
         <div class="robot-card-overlay"></div>
         <div class="robot-card-name-bg">ATLAS-7</div>
@@ -4726,10 +4726,10 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- REEF -->
       <div class="robot-card" onclick="openReef()">
         <video class="robot-card-video" muted loop playsinline preload="none">
-          <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF-VIDEO.mp4" type="video/mp4">
+          <source data-src="/arca-robots/assets/site1/REEF-VIDEO.mp4" type="video/mp4">
         </video>
         <img loading="lazy" class="robot-card-img"
-          src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF.png"
+          src="/arca-robots/assets/site1/REEF.png"
           alt="Reef">
         <div class="robot-card-overlay"></div>
         <div class="robot-card-name-bg">REEF</div>
@@ -4814,7 +4814,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 
     <!-- Slide 1: HQ Facade (video) -->\n    <div class="ia2-slide active">
       <video class="ia2-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-HQ.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/ARCA-HQ.mp4" type="video/mp4">
       </video>
       <div class="ia2-overlay"></div>
     </div>
@@ -4822,7 +4822,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <!-- Slide 2: Testing Arena (video) -->
     <div class="ia2-slide">
       <video class="ia2-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-Testing.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/ARCA-Testing.mp4" type="video/mp4">
       </video>
       <div class="ia2-overlay"></div>
     </div>
@@ -4830,28 +4830,28 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <!-- Slide 3: Kira Factory (video) -->
     <div class="ia2-slide">
       <video class="ia2-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-Kira.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/ARCA-Kira.mp4" type="video/mp4">
       </video>
       <div class="ia2-overlay"></div>
     </div>
 
     <!-- Slide 4: Lab (image) -->
     <div class="ia2-slide">
-      <img loading="lazy" class="ia2-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-Lab.jpg" alt="ARCA R&D Lab">
+      <img loading="lazy" class="ia2-img" src="/arca-robots/assets/site1/ARCA-Lab.jpg" alt="ARCA R&D Lab">
       <div class="ia2-overlay"></div>
     </div>
 
     <!-- Slide 5: Founder (video) -->
     <div class="ia2-slide">
       <video class="ia2-video" muted loop playsinline preload="none">
-        <source data-src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-Founder.mp4" type="video/mp4">
+        <source data-src="/arca-robots/assets/site1/ARCA-Founder.mp4" type="video/mp4">
       </video>
       <div class="ia2-overlay"></div>
     </div>
 
     <!-- Slide 6: Factory (image) -->
     <div class="ia2-slide">
-      <img loading="lazy" class="ia2-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-Factory.jpg" alt="ARCA Factory Floor">
+      <img loading="lazy" class="ia2-img" src="/arca-robots/assets/site1/ARCA-Factory.jpg" alt="ARCA Factory Floor">
       <div class="ia2-overlay"></div>
     </div>
 
@@ -4924,7 +4924,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 1: Robotics SW Engineer -->
       <div class="car-card" data-idx="0" onclick="carCardClick(0)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_robotics_sw.jpg" alt="Robotics Software Engineer">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_robotics_sw.jpg" alt="Robotics Software Engineer">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car1_dept">Engineering</div>
@@ -4942,7 +4942,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 2: Computer Vision Specialist -->
       <div class="car-card" data-idx="1" onclick="carCardClick(1)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_cv_specialist.jpg" alt="Computer Vision Specialist">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_cv_specialist.jpg" alt="Computer Vision Specialist">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car2_dept">Engineering</div>
@@ -4960,7 +4960,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 3: Mechanical Design Engineer -->
       <div class="car-card" data-idx="2" onclick="carCardClick(2)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_mechanical.jpg" alt="Mechanical Design Engineer">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_mechanical.jpg" alt="Mechanical Design Engineer">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car3_dept">Hardware</div>
@@ -4978,7 +4978,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 4: AI Training Data Lead -->
       <div class="car-card" data-idx="3" onclick="carCardClick(3)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_ai_data.jpg" alt="AI Training Data Lead">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_ai_data.jpg" alt="AI Training Data Lead">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car4_dept">AI / ML</div>
@@ -4996,7 +4996,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 5: Operations Manager -->
       <div class="car-card" data-idx="4" onclick="carCardClick(4)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_operations.jpg" alt="Operations Manager">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_operations.jpg" alt="Operations Manager">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car5_dept">Operations</div>
@@ -5014,7 +5014,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       <!-- Card 6: Marketing & Content Lead -->
       <div class="car-card" data-idx="5" onclick="carCardClick(5)">
         <div class="car-card-inner">
-          <img loading="lazy" class="car-card-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_marketing.jpg" alt="Marketing Content Lead">
+          <img loading="lazy" class="car-card-img" src="/arca-robots/assets/career/career_marketing.jpg" alt="Marketing Content Lead">
           <div class="car-card-overlay"></div>
           <div class="car-card-content">
             <div class="car-card-dept" data-i18n="car6_dept">Marketing</div>
@@ -5096,7 +5096,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- BLOCK 2: HQ Photo + Quote -->
   <div id="ft-photo-wrap">
     <img loading="lazy" id="ft-photo-img"
-         src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ARCA-HQ-FOOTER.jpg"
+         src="/arca-robots/assets/site1/ARCA-HQ-FOOTER.jpg"
          alt="ARCA Robotics HQ — Munich">
     <div id="ft-photo-overlay"></div>
 
@@ -5367,7 +5367,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car1_dept">Engineering</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_robotics_sw.jpg" alt="Robotics Software Engineer">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_robotics_sw.jpg" alt="Robotics Software Engineer">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow" data-i18n="car1_dept">Engineering · Full-time · Hybrid</div>
@@ -5386,7 +5386,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     </div>
     <!-- Alternating sections -->
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-1"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp0_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-1"><img loading="lazy" src="/arca-robots/assets/career/cp0_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title" data-i18n="cp0_role_title">BUILD THE<br>BRAIN STEM.</h2>
@@ -5395,7 +5395,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-2"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp0_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-2"><img loading="lazy" src="/arca-robots/assets/career/cp0_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Tech Stack</div>
         <h2 class="cp-split-title" data-i18n="cp0_stack_title">THE TOOLS<br>WE USE.</h2>
@@ -5468,7 +5468,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car2_dept">Engineering</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_cv_specialist.jpg" alt="Computer Vision">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_cv_specialist.jpg" alt="Computer Vision">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow">Engineering · Full-time · On-site</div>
@@ -5485,7 +5485,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-3"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp1_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-3"><img loading="lazy" src="/arca-robots/assets/career/cp1_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title" data-i18n="cp1_role_title">SEE WHAT<br>OTHERS MISS.</h2>
@@ -5494,7 +5494,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-4"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp1_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-4"><img loading="lazy" src="/arca-robots/assets/career/cp1_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Tech Stack</div>
         <h2 class="cp-split-title">THE TOOLS<br>WE USE.</h2>
@@ -5571,7 +5571,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car3_dept">Hardware</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_mechanical.jpg" alt="Mechanical Engineer">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_mechanical.jpg" alt="Mechanical Engineer">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow">Hardware · Full-time · On-site</div>
@@ -5588,7 +5588,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-5"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp2_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-5"><img loading="lazy" src="/arca-robots/assets/career/cp2_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title">DESIGN WHAT<br>MOVES THE<br>WORLD.</h2>
@@ -5597,7 +5597,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-6"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp2_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-6"><img loading="lazy" src="/arca-robots/assets/career/cp2_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Tech Stack</div>
         <h2 class="cp-split-title">THE TOOLS<br>WE USE.</h2>
@@ -5663,7 +5663,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car4_dept">AI / ML</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_ai_data.jpg" alt="AI Training Data">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_ai_data.jpg" alt="AI Training Data">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow">AI / ML · Full-time · Remote</div>
@@ -5680,7 +5680,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-7"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp3_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-7"><img loading="lazy" src="/arca-robots/assets/career/cp3_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title">DATA IS THE<br>REAL ROBOT.</h2>
@@ -5689,7 +5689,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-8"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp3_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-8"><img loading="lazy" src="/arca-robots/assets/career/cp3_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Tech Stack</div>
         <h2 class="cp-split-title">THE TOOLS<br>WE USE.</h2>
@@ -5760,7 +5760,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car5_dept">Operations</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_operations.jpg" alt="Operations">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_operations.jpg" alt="Operations">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow">Operations · Full-time · Hybrid</div>
@@ -5777,7 +5777,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-9"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp4_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-9"><img loading="lazy" src="/arca-robots/assets/career/cp4_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title">KEEP THE<br>FLEET<br>RUNNING.</h2>
@@ -5786,7 +5786,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-10"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp4_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-10"><img loading="lazy" src="/arca-robots/assets/career/cp4_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Tools & Skills</div>
         <h2 class="cp-split-title">THE TOOLS<br>WE USE.</h2>
@@ -5848,7 +5848,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <span class="cp-tag" data-i18n="car6_dept">Marketing</span>
   </nav>
   <div class="cp-hero">
-    <img loading="lazy" class="cp-hero-img" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/career_marketing.jpg" alt="Marketing">
+    <img loading="lazy" class="cp-hero-img" src="/arca-robots/assets/career/career_marketing.jpg" alt="Marketing">
     <div class="cp-hero-overlay"></div>
     <div class="cp-hero-content">
       <div class="cp-hero-eyebrow">Marketing · Full-time · Remote</div>
@@ -5865,7 +5865,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split reveal">
-      <div class="cp-split-img rot-11"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp5_role.jpg" alt=""></div>
+      <div class="cp-split-img rot-11"><img loading="lazy" src="/arca-robots/assets/career/cp5_role.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_role">The Role</div>
         <h2 class="cp-split-title">MAKE THE<br>WORLD<br>NOTICE.</h2>
@@ -5874,7 +5874,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
       </div>
     </div>
     <div class="cp-split cp-split-rev reveal">
-      <div class="cp-split-img rot-12"><img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_career/main/cp5_stack.jpg" alt=""></div>
+      <div class="cp-split-img rot-12"><img loading="lazy" src="/arca-robots/assets/career/cp5_stack.jpg" alt=""></div>
       <div class="cp-split-text">
         <div class="cp-split-eyebrow" data-i18n="cp_stack">Channels & Tools</div>
         <h2 class="cp-split-title">THE TOOLS<br>WE USE.</h2>
@@ -5988,7 +5988,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="ap-hero">
     <div class="ap-hero-clip">
       <video id="ap-video" muted loop playsinline>
-        <source src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ATLAS-7_banner.mp4" type="video/mp4">
+        <source src="/arca-robots/assets/site1/ATLAS-7_banner.mp4" type="video/mp4">
       </video>
       <div class="ap-hero-overlay"></div>
     </div>
@@ -6022,7 +6022,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="ap-story">
     <div class="ap-story-inner">
       <div class="ap-story-left">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/ATLAS-7_site.png" alt="Atlas-7 rear view">
+        <img loading="lazy" src="/arca-robots/assets/site1/ATLAS-7_site.png" alt="Atlas-7 rear view">
       </div>
       <div class="ap-story-right">
         <div class="ap-s-eyebrow reveal">Origin · 2024</div>
@@ -6131,7 +6131,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- HERO -->
   <div class="rp-hero">
     <video id="reef-video" muted loop playsinline>
-      <source src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF-BANNER-VID.mp4" type="video/mp4">
+      <source src="/arca-robots/assets/site1/REEF-BANNER-VID.mp4" type="video/mp4">
     </video>
     <div class="rp-hero-overlay"></div>
     <div class="rp-hero-content">
@@ -6162,7 +6162,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="rp-light">
     <div class="rp-row">
       <div class="rp-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF.png" alt="Reef front">
+        <img loading="lazy" src="/arca-robots/assets/site1/REEF.png" alt="Reef front">
       </div>
       <div class="rp-text">
         <div class="rp-s-eyebrow reveal">Design Philosophy · 2024</div>
@@ -6193,7 +6193,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="rp-light">
     <div class="rp-row reverse">
       <div class="rp-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/REEF-SITE.png" alt="Reef rear">
+        <img loading="lazy" src="/arca-robots/assets/site1/REEF-SITE.png" alt="Reef rear">
       </div>
       <div class="rp-text">
         <div class="rp-s-eyebrow reveal">Where Reef Works · 2024</div>
@@ -6298,7 +6298,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- HERO -->
   <div class="kp-hero">
     <video id="kira-video" muted loop playsinline>
-      <source src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA-BANNER-VID.mp4" type="video/mp4">
+      <source src="/arca-robots/assets/site1/KIRA-BANNER-VID.mp4" type="video/mp4">
     </video>
     <div class="kp-hero-overlay"></div>
     <div class="kp-hero-glow"></div>
@@ -6330,7 +6330,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="kp-light">
     <div class="kp-row">
       <div class="kp-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA.png" alt="Kira front">
+        <img loading="lazy" src="/arca-robots/assets/site1/KIRA.png" alt="Kira front">
       </div>
       <div class="kp-text">
         <div class="kp-s-eyebrow reveal">Design Philosophy · 2024</div>
@@ -6361,7 +6361,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="kp-light">
     <div class="kp-row reverse">
       <div class="kp-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/KIRA_site.png" alt="Kira rear">
+        <img loading="lazy" src="/arca-robots/assets/site1/KIRA_site.png" alt="Kira rear">
       </div>
       <div class="kp-text">
         <div class="kp-s-eyebrow reveal">Where Kira Operates · 2024</div>
@@ -6466,7 +6466,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <!-- HERO -->
   <div class="op-hero">
     <video id="osiris-video" muted loop playsinline>
-      <source src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Osiris-banner-video.mp4" type="video/mp4">
+      <source src="/arca-robots/assets/site1/Osiris-banner-video.mp4" type="video/mp4">
     </video>
     <div class="op-hero-overlay"></div>
     <div class="op-hero-glow"></div>
@@ -6498,7 +6498,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="op-light">
     <div class="op-row">
       <div class="op-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/OSIRIS.png" alt="Osiris front">
+        <img loading="lazy" src="/arca-robots/assets/site1/OSIRIS.png" alt="Osiris front">
       </div>
       <div class="op-text">
         <div class="op-s-eyebrow reveal">Design Philosophy · 2024</div>
@@ -6529,7 +6529,7 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
   <div class="op-light">
     <div class="op-row reverse">
       <div class="op-photo">
-        <img loading="lazy" src="https://raw.githubusercontent.com/bogdangodluk22-art/MeetHR_Site1/main/Osiris-site.png" alt="Osiris rear">
+        <img loading="lazy" src="/arca-robots/assets/site1/Osiris-site.png" alt="Osiris rear">
       </div>
       <div class="op-text">
         <div class="op-s-eyebrow reveal">Where Osiris Works · 2024</div>
@@ -6970,9 +6970,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') _closeModal(
 
 // ── Babylon.js ──
 const GLB = {
-  base:      'https://raw.githubusercontent.com/bogdangodluk22-art/osiris/main/Meshy_AI_Osiris_Robot.glb',
-  breathing: 'https://raw.githubusercontent.com/bogdangodluk22-art/osiris/main/Breathing%20Robot.glb',
-  touch:     'https://raw.githubusercontent.com/bogdangodluk22-art/osiris/main/touchscreen%20robot.glb'
+  base:      '/arca-robots/assets/osiris/Meshy_AI_Osiris_Robot.glb',
+  breathing: '/arca-robots/assets/osiris/Breathing%20Robot.glb',
+  touch:     '/arca-robots/assets/osiris/touchscreen%20robot.glb'
 };
 const Y_OFFSET = { base: 0.6, breathing: -0.2, touch: -0.2 };
 
