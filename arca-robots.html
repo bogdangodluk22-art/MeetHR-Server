@@ -8092,6 +8092,7 @@ window.submitApplication = async function() {
   const email     = document.getElementById('af-email').value.trim();
   const roleIdx   = parseInt(document.getElementById('af-role').value) || 0;
   const message   = document.getElementById('af-message').value.trim();
+  const fileInput = document.getElementById('af-cv-file');
   const statusEl  = document.getElementById('af-status');
   const submitBtn = document.getElementById('af-submit');
 
@@ -8101,7 +8102,6 @@ window.submitApplication = async function() {
     return;
   }
 
-  // Split full name → first / last
   const parts     = fullName.split(' ');
   const firstName = parts[0] || fullName;
   const lastName  = parts.slice(1).join(' ') || '';
@@ -8113,7 +8113,46 @@ window.submitApplication = async function() {
   statusEl.className = '';
 
   try {
-    // Upsert candidate into Supabase
+    // Step 1: Upload CV to Supabase Storage (if file selected)
+    let resumeUrl = null;
+    const cvFile = fileInput && fileInput.files[0];
+    if (cvFile) {
+      statusEl.textContent = 'Uploading CV...';
+      const safeEmail = email.replace(/[^a-zA-Z0-9]/g, '_');
+      const ext = cvFile.name.split('.').pop();
+      const filePath = safeEmail + '_' + Date.now() + '.' + ext;
+      const uploadRes = await fetch(
+        'https://czywpqncatwxdiynmvzo.supabase.co/storage/v1/object/resumes/' + filePath,
+        {
+          method: 'POST',
+          headers: {
+            'apikey': SB_KEY,
+            'Authorization': 'Bearer ' + SB_KEY,
+            'Content-Type': cvFile.type || 'application/octet-stream',
+            'x-upsert': 'true'
+          },
+          body: cvFile
+        }
+      );
+      if (uploadRes.ok) {
+        resumeUrl = 'https://czywpqncatwxdiynmvzo.supabase.co/storage/v1/object/public/resumes/' + filePath;
+      } else {
+        console.warn('CV upload failed, continuing without it');
+      }
+    }
+
+    // Step 2: Upsert candidate into Supabase
+    statusEl.textContent = 'Saving application...';
+    const payload = {
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      vacancy_id: vacancyId,
+      why_arca: message,
+      status: 'applied'
+    };
+    if (resumeUrl) payload.resume_url = resumeUrl;
+
     const res = await fetch(SB_URL + '/candidates', {
       method: 'POST',
       headers: {
@@ -8122,14 +8161,7 @@ window.submitApplication = async function() {
         'Authorization': 'Bearer ' + SB_KEY,
         'Prefer': 'resolution=merge-duplicates,return=minimal'
       },
-      body: JSON.stringify({
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        vacancy_id: vacancyId,
-        why_arca: message,
-        status: 'applied'
-      })
+      body: JSON.stringify(payload)
     });
 
     if (res.ok || res.status === 201 || res.status === 200) {
