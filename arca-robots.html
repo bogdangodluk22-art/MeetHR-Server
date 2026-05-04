@@ -8042,19 +8042,6 @@ const JOB_TITLES = [
   'Marketing & Content Lead'
 ];
 
-const VACANCY_SLUGS = [
-  'robotics-sw-eng',
-  'computer-vision',
-  'mechanical-design',
-  'ai-training-lead',
-  'operations-manager',
-  'marketing-content-lead'
-];
-
-// ── Supabase config ──
-const SB_URL  = 'https://czywpqncatwxdiynmvzo.supabase.co/rest/v1';
-const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6eXdwcW5jYXR3eGRpeW5tdnpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjA1MzcsImV4cCI6MjA5MzEzNjUzN30.7DulYfQfZ_JQ-YOJ1O2f9Z9BIppIpvbPzLPVU2iRvsk';
-
 window.openApplyModal = function(idx) {
   const modal = document.getElementById('apply-modal');
   const roleEl = document.getElementById('apply-modal-role');
@@ -8088,83 +8075,49 @@ window.handleFileUpload = function(input) {
 };
 
 window.submitApplication = async function() {
-  const fullName  = document.getElementById('af-name').value.trim();
-  const email     = document.getElementById('af-email').value.trim();
-  const roleIdx   = parseInt(document.getElementById('af-role').value) || 0;
-  const message   = document.getElementById('af-message').value.trim();
+  const name    = document.getElementById('af-name').value.trim();
+  const email   = document.getElementById('af-email').value.trim();
+  const role    = document.getElementById('af-role').value;
+  const message = document.getElementById('af-message').value.trim();
+  const fileInput = document.getElementById('af-cv-file');
   const statusEl  = document.getElementById('af-status');
   const submitBtn = document.getElementById('af-submit');
 
-  if (!fullName || !email) {
+  if (!name || !email) {
     statusEl.textContent = 'Please fill in your name and email.';
     statusEl.className = 'err';
     return;
   }
 
-  // Split full name → first / last
-  const parts     = fullName.split(' ');
-  const firstName = parts[0] || fullName;
-  const lastName  = parts.slice(1).join(' ') || '';
-  const vacancyId = VACANCY_SLUGS[roleIdx] || VACANCY_SLUGS[0];
-  const roleTitle = JOB_TITLES[roleIdx] || JOB_TITLES[0];
-
   submitBtn.disabled = true;
   statusEl.textContent = 'Sending...';
   statusEl.className = '';
 
-  try {
-    // Upsert candidate into Supabase
-    const res = await fetch(SB_URL + '/candidates', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SB_KEY,
-        'Authorization': 'Bearer ' + SB_KEY,
-        'Prefer': 'resolution=merge-duplicates,return=minimal'
-      },
-      body: JSON.stringify({
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        vacancy_id: vacancyId,
-        why_arca: message,
-        status: 'applied'
-      })
-    });
+  // Build FormData for file upload support
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('role', JOB_TITLES[role] || role);
+  formData.append('message', message);
+  if (fileInput.files[0]) formData.append('cv', fileInput.files[0]);
 
-    if (res.ok || res.status === 201 || res.status === 200) {
-      showApplySuccess(firstName, roleTitle);
+  try {
+    const res = await fetch('https://n8n.srv1421181.hstgr.cloud/webhook/arca-apply', {
+      method: 'POST',
+      body: formData
+    });
+    if (res.ok) {
+      statusEl.textContent = '✓ Application sent. We\'ll be in touch.';
+      statusEl.className = 'ok';
+      setTimeout(closeApplyModal, 2800);
     } else {
-      const errBody = await res.text();
-      console.error('Supabase error:', res.status, errBody);
-      throw new Error('DB error');
+      throw new Error('Server error');
     }
   } catch (err) {
     statusEl.textContent = 'Something went wrong. Please try again.';
     statusEl.className = 'err';
     submitBtn.disabled = false;
   }
-};
-
-// ── Success screen inside the modal ──
-window.showApplySuccess = function(firstName, roleTitle) {
-  const box = document.getElementById('apply-modal-box');
-  // ЗАМІНИТИ ПОСИЛАННЯ: замість '#' вставити реальний URL Сайту 2
-  const site2Url = '#'; // ← ЗМІНИТИ НА РЕАЛЬНИЙ URL (напр. https://builtwithai.pro/meethr/)
-  box.innerHTML = \`
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;text-align:center;padding:48px 32px;">
-      <div style="width:64px;height:64px;border-radius:50%;border:2px solid #c9a84c;display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:#c9a84c;margin-bottom:12px;">APPLICATION RECEIVED</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1.05;color:#fff;margin-bottom:8px;">YOU'RE IN, \${firstName}.</h2>
-      <p style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:36px;max-width:340px;">Your application for <span style="color:#c9a84c;font-weight:500;">\${roleTitle}</span> is saved.<br>Your interview portal is ready.</p>
-      <a href="\${site2Url}" style="display:inline-flex;align-items:center;gap:10px;background:#c9a84c;color:#0A0A0F;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;padding:16px 32px;border-radius:2px;text-decoration:none;text-transform:uppercase;transition:background 0.2s;" onmouseover="this.style.background='#ddc06a'" onmouseout="this.style.background='#c9a84c'">
-        Go to My Portal →
-      </a>
-      <button onclick="closeApplyModal()" style="margin-top:20px;background:none;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;font-family:'Space Grotesk',sans-serif;">Close</button>
-    </div>
-  \`;
 };
 
 // Add i18n keys for careers
