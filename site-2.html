@@ -1,0 +1,3714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCA Robotics — Interview Portal</title>
+
+<!-- OG / Telegram -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://builtwithai.pro/meethr/">
+<meta property="og:title"       content="ARCA Robotics — AI Interview Portal">
+<meta property="og:description" content="Pass your AI interview with ARCA Robotics. Talk to our AI recruiter and get a response within 24 hours.">
+<meta property="og:image"       content="https://builtwithai.pro/meethr/media/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD-CEO.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="ARCA Robotics — AI Interview Portal">
+<meta name="twitter:description" content="Pass your AI interview with ARCA Robotics. Talk to our AI recruiter and get a response within 24 hours.">
+<meta name="twitter:image"       content="https://builtwithai.pro/meethr/media/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD-CEO.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0A0A0F;
+    --card:      #0D0D1A;
+    --card2:     #111120;
+    --gold:      #C9A84C;
+    --gold-light:#E8C97A;
+    --gold-dim:  rgba(201,168,76,0.12);
+    --white:     #FFFFFF;
+    --gray:      #8E8EA0;
+    --steel:     #C0C0C8;
+    --border:    rgba(201,168,76,0.18);
+    --border2:   rgba(255,255,255,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* Screen 1 needs flex centering */
+  #screen1.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding: 48px 20px 80px;
+    position: relative;
+  }
+
+  /* ── SHARED BACKGROUND ── */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .bg-glow {
+    position: fixed; z-index: 0; pointer-events: none;
+    border-radius: 50%; filter: blur(120px); opacity: 0.18;
+  }
+  .bg-glow-1 {
+    width: 600px; height: 600px; top: -200px; left: -200px;
+    background: radial-gradient(circle, #C9A84C 0%, transparent 70%);
+    animation: drift1 12s ease-in-out infinite alternate;
+  }
+  .bg-glow-2 {
+    width: 500px; height: 500px; bottom: -150px; right: -150px;
+    background: radial-gradient(circle, #1a1a4a 0%, transparent 70%);
+    animation: drift2 15s ease-in-out infinite alternate;
+  }
+  @keyframes drift1 { from{transform:translate(0,0)} to{transform:translate(40px,30px)} }
+  @keyframes drift2 { from{transform:translate(0,0)} to{transform:translate(-30px,-40px)} }
+
+  .scanline {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+    );
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ════════════════════════════════
+     SCREEN 1 — OSIRIS BACKGROUND
+  ════════════════════════════════ */
+  #osiris-bg-img {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('https://builtwithai.pro/meethr/media/osiris-start.png');
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  #osiris-bg-video {
+    position: fixed; inset: 0; z-index: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  #osiris-bg-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(10,10,15,0.15) 0%, rgba(10,10,15,0.75) 55%, rgba(10,10,15,0.95) 100%);
+  }
+
+  /* ════════════════════════════════
+     SCREEN 1 — REGISTRATION
+  ════════════════════════════════ */
+  .portal {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 520px;
+    padding: 20px;
+    animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .logo-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .logo-mark {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--gold-dim);
+  }
+  .logo-mark::after {
+    content: ''; width: 16px; height: 16px;
+    background: var(--gold);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .logo-text { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.12em; color:var(--white); }
+  .logo-text span { color: var(--gold); }
+  .logo-sep { width:1px; height:28px; background:var(--border); margin:0 4px; }
+  .logo-sub { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.15em; color:var(--gray); text-transform:uppercase; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 2px; padding: 48px 44px 44px;
+    position: relative; overflow: hidden;
+    animation: fadeUp 0.8s 0.18s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .card::before {
+    content: ''; position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .card-corner { position:absolute; width:20px; height:20px; border-color:var(--gold); border-style:solid; opacity:0.5; }
+  .card-corner.tl { top:12px; left:12px; border-width:1px 0 0 1px; }
+  .card-corner.tr { top:12px; right:12px; border-width:1px 1px 0 0; }
+  .card-corner.bl { bottom:12px; left:12px; border-width:0 0 1px 1px; }
+  .card-corner.br { bottom:12px; right:12px; border-width:0 1px 1px 0; }
+
+  .portal-tag {
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .portal-tag::before { content:''; width:20px; height:1px; background:var(--gold); }
+  .portal-title { font-family:'Bebas Neue',sans-serif; font-size:42px; line-height:1.05; letter-spacing:0.02em; color:var(--white); margin-bottom:8px; }
+  .portal-sub { font-size:14px; color:var(--gray); line-height:1.5; margin-bottom:36px; }
+
+  .vacancy-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--gold-dim); border:1px solid var(--border); border-radius:2px;
+    padding:6px 14px; font-family:'JetBrains Mono',monospace;
+    font-size:12px; letter-spacing:0.08em; color:var(--gold); margin-bottom:36px;
+  }
+  .vacancy-badge::before { content:'▸'; font-size:10px; }
+
+  .field { margin-bottom:20px; }
+  .field-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; color:var(--gray); text-transform:uppercase; margin-bottom:8px; display:block; }
+  .field-input {
+    width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--border2);
+    border-radius:2px; padding:14px 16px; color:var(--white);
+    font-family:'Outfit',sans-serif; font-size:15px; outline:none;
+    transition:border-color 0.2s, background 0.2s, box-shadow 0.2s; -webkit-appearance:none;
+  }
+  .field-input::placeholder { color:rgba(255,255,255,0.2); }
+  .field-input:focus { border-color:var(--gold); background:rgba(201,168,76,0.05); box-shadow:0 0 0 3px rgba(201,168,76,0.08); }
+  .field-input.error { border-color:#e05555; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .field-wrap { position:relative; }
+  .field-wrap .field-input { padding-right:44px; }
+  .pw-toggle { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--gray); padding:4px; transition:color 0.2s; }
+  .pw-toggle:hover { color:var(--gold); }
+  .pw-strength { display:flex; gap:4px; margin-top:8px; }
+  .pw-bar { flex:1; height:2px; border-radius:1px; background:var(--border2); transition:background 0.3s; }
+  .pw-bar.weak { background:#e05555; }
+  .pw-bar.medium { background:#e0a455; }
+  .pw-bar.strong { background:#55c98a; }
+  .field-error { font-size:12px; color:#e05555; margin-top:6px; display:none; }
+  .field-error.show { display:block; }
+  .divider { border:none; border-top:1px solid var(--border2); margin:28px 0; }
+
+  .btn-submit {
+    width:100%; background:var(--gold); color:#0A0A0F; border:none; border-radius:2px;
+    padding:17px 24px; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.12em;
+    cursor:pointer; transition:background 0.2s, transform 0.15s, box-shadow 0.2s;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .btn-submit:hover { background:var(--gold-light); box-shadow:0 8px 32px rgba(201,168,76,0.3); transform:translateY(-1px); }
+  .btn-submit.loading { pointer-events:none; opacity:0.8; }
+  .btn-arrow { font-size:20px; transition:transform 0.2s; }
+  .btn-submit:hover .btn-arrow { transform:translateX(4px); }
+  .spinner { width:18px; height:18px; border:2px solid rgba(10,10,15,0.3); border-top-color:#0A0A0F; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+  .btn-submit.loading .spinner { display:block; }
+  .btn-submit.loading .btn-text, .btn-submit.loading .btn-arrow { display:none; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  .portal-note { margin-top:20px; font-size:12px; color:var(--gray); text-align:center; line-height:1.6; }
+  .portal-note a { color:var(--gold); text-decoration:none; }
+  .login-row { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:24px; font-size:13px; color:var(--gray); }
+  .login-row a { color:var(--gold); text-decoration:none; font-weight:500; }
+
+  .success-screen { display:none; text-align:center; padding:20px 0; animation:fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+  .success-icon {
+    width:72px; height:72px; border:2px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 24px; font-size:28px;
+    animation:pulseGold 2s ease-in-out infinite;
+  }
+  @keyframes pulseGold {
+    0%,100% { box-shadow:0 0 0 0 rgba(201,168,76,0.3); }
+    50% { box-shadow:0 0 0 12px rgba(201,168,76,0); }
+  }
+  .success-title { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.05em; color:var(--white); margin-bottom:8px; }
+  .success-sub { font-size:14px; color:var(--gray); line-height:1.6; margin-bottom:32px; }
+  .btn-continue {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--gold); color:#0A0A0F; border:none; border-radius:2px;
+    padding:14px 32px; font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:0.1em;
+    cursor:pointer; transition:background 0.2s, transform 0.15s; text-decoration:none;
+  }
+  .btn-continue:hover { background:var(--gold-light); transform:translateY(-1px); }
+
+  .steps { display:flex; align-items:center; justify-content:center; margin-bottom:36px; }
+  .step { display:flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--gray); text-transform:uppercase; }
+  .step-num { width:22px; height:22px; border:1px solid var(--border2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; transition:all 0.3s; }
+  .step.active .step-num { border-color:var(--gold); background:var(--gold-dim); color:var(--gold); }
+  .step.active { color:var(--gold); }
+  .step.done .step-num { border-color:var(--gold); background:var(--gold); color:#0A0A0F; }
+  .step-line { width:28px; height:1px; background:var(--border2); margin:0 8px; }
+
+  /* ════════════════════════════════
+     SCREEN 2 — VACANCY
+  ════════════════════════════════ */
+  #screen2 { position:relative; }
+
+  /* NAV */
+  .s2-nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:24px 48px;
+    background:linear-gradient(to bottom, rgba(10,10,15,0.85), transparent);
+  }
+  .s2-nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .s2-nav-mark {
+    width:32px; height:32px;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--gold); display:flex; align-items:center; justify-content:center;
+  }
+  .s2-nav-mark::after { content:''; width:12px; height:12px; clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background:#0A0A0F; }
+  .s2-nav-text { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.15em; color:var(--white); }
+  .s2-nav-text span { color:var(--gold); }
+  .s2-nav-right { display:flex; align-items:center; gap:24px; }
+  .s2-nav-candidate { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:var(--gray); text-transform:uppercase; }
+  .s2-nav-candidate span { color:var(--gold); }
+  .s2-nav-step { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--gray); text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+  .s2-step-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse2 2s ease-in-out infinite; }
+  @keyframes pulse2 { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  /* HERO */
+  .s2-hero { position:relative; width:100%; height:100vh; overflow:hidden; display:flex; align-items:flex-end; }
+  .s2-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .s2-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.1) 40%, rgba(10,10,15,0.85) 85%, rgba(10,10,15,1) 100%); }
+  .s2-overlay-l { position:absolute; inset:0; z-index:1; background:linear-gradient(to right, rgba(10,10,15,0.65) 0%, transparent 55%); }
+  .s2-scanline { position:absolute; inset:0; z-index:2; pointer-events:none; background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px); }
+
+  .s2-hero-content { position:relative; z-index:3; padding:0 64px 72px; max-width:900px; animation:fadeUp 1s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+  .s2-tag { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.25em; color:var(--gold); text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .s2-tag::before { content:''; width:32px; height:1px; background:var(--gold); }
+  .s2-greeting { font-size:18px; font-weight:300; color:rgba(255,255,255,0.6); margin-bottom:8px; }
+  .s2-greeting span { color:var(--white); font-weight:500; }
+  .s2-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,8vw,96px); line-height:0.95; letter-spacing:0.02em; color:var(--white); margin-bottom:24px; }
+  .s2-title .gold { color:var(--gold); }
+  .s2-meta { display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:40px; }
+  .s2-meta-item { display:flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5); }
+  .s2-meta-sep { width:1px; height:16px; background:rgba(255,255,255,0.15); }
+  .s2-actions { display:flex; align-items:center; gap:16px; }
+
+  .btn-primary {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--gold); color:#0A0A0F; border:none; border-radius:2px;
+    padding:16px 32px; font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:0.12em;
+    cursor:pointer; transition:background 0.2s, transform 0.15s, box-shadow 0.2s; text-decoration:none;
+  }
+  .btn-primary:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 12px 40px rgba(201,168,76,0.35); }
+  .btn-primary .arr { font-size:18px; transition:transform 0.2s; }
+  .btn-primary:hover .arr { transform:translateX(4px); }
+
+  .btn-ghost {
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent; color:var(--white); border:1px solid var(--border);
+    border-radius:2px; padding:15px 24px; font-family:'JetBrains Mono',monospace;
+    font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    cursor:pointer; transition:border-color 0.2s, color 0.2s, background 0.2s; text-decoration:none;
+  }
+  .btn-ghost:hover { border-color:var(--gold); color:var(--gold); background:var(--gold-dim); }
+
+  .scroll-hint { position:absolute; bottom:32px; right:48px; z-index:3; display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeUp 1s 1s cubic-bezier(0.22,1,0.36,1) both; }
+  .scroll-hint-text { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; color:rgba(255,255,255,0.3); text-transform:uppercase; writing-mode:vertical-rl; }
+  .scroll-hint-line { width:1px; height:48px; background:linear-gradient(to bottom, rgba(201,168,76,0.6), transparent); animation:scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+  /* CONTENT */
+  .s2-sections { position:relative; z-index:10; background:var(--bg); }
+
+  /* ── PREP SECTION ── */
+  .s2-prep {
+    background: #080810;
+    padding: 120px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-prep::before {
+    content:'';
+    position:absolute;
+    top:-1px; left:0; right:0; height:80px;
+    background: linear-gradient(to bottom, var(--bg), transparent);
+    pointer-events:none; z-index:1;
+  }
+  .s2-prep::after {
+    content:'';
+    position:absolute;
+    bottom:-1px; left:0; right:0; height:80px;
+    background: linear-gradient(to top, var(--bg), transparent);
+    pointer-events:none; z-index:1;
+  }
+  .prep-glow {
+    position:absolute;
+    width:600px; height:600px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .prep-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative; z-index:2;
+  }
+  .prep-header {
+    margin-bottom: 70px;
+  }
+  .prep-eyebrow {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:0.25em;
+    color:var(--gold); text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:20px;
+  }
+  .prep-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+  .prep-headline {
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight:700;
+    line-height:1.0;
+    letter-spacing:-0.03em;
+    color:#fff;
+    overflow:hidden;
+  }
+  .prep-headline .line-wrap { overflow:hidden; display:block; }
+  .prep-headline .line-inner {
+    display:block;
+    transform: translateY(110%);
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .prep-headline .line-inner.revealed { transform: translateY(0); }
+  .prep-subline {
+    margin-top:20px;
+    font-size:17px; color:var(--gray); line-height:1.6;
+    max-width:480px;
+    opacity:0; transform:translateY(20px);
+    transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+  }
+  .prep-subline.revealed { opacity:1; transform:translateY(0); }
+
+  /* Stats row */
+  .prep-stats {
+    display:flex; gap:0;
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:70px;
+    opacity:0; transform:translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .prep-stats.revealed { opacity:1; transform:translateY(0); }
+  .prep-stat {
+    flex:1; padding:32px 28px;
+    border-right:1px solid rgba(255,255,255,0.07);
+    text-align:center;
+  }
+  .prep-stat:last-child { border-right:none; }
+  .prep-stat-num {
+    font-size:42px; font-weight:700;
+    color:#fff; line-height:1;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-0.02em;
+  }
+  .prep-stat-num .gold { color:var(--gold); }
+  .prep-stat-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px; letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gray);
+    margin-top:8px;
+  }
+
+  /* Cards grid */
+  .prep-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .prep-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 32px 32px 28px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    opacity:0; transform:translateY(40px);
+  }
+  .prep-card.revealed {
+    opacity:1; transform:translateY(0);
+  }
+  .prep-card:hover {
+    background: rgba(201,168,76,0.05);
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-3px);
+  }
+  .prep-card-icon {
+    width:48px; height:48px;
+    border-radius:12px;
+    background: rgba(201,168,76,0.1);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+    color:var(--gold);
+  }
+  .prep-card-icon svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .prep-card-title {
+    font-size:18px; font-weight:600;
+    color:#fff; margin-bottom:8px;
+    letter-spacing:-0.01em;
+  }
+  .prep-card-desc {
+    font-size:14px; color:var(--gray);
+    line-height:1.6;
+  }
+  .prep-card-plus {
+    position:absolute;
+    bottom:24px; right:24px;
+    width:32px; height:32px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gray);
+    font-size:18px; font-weight:300;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.3s;
+  }
+  .prep-card:hover .prep-card-plus {
+    background: var(--gold);
+    color:#000;
+    border-color:var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* CTA row */
+  .prep-cta-row {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:32px 36px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.03) 100%);
+    border:1px solid rgba(201,168,76,0.2);
+    border-radius:20px;
+    opacity:0; transform:translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .prep-cta-row.revealed { opacity:1; transform:translateY(0); }
+  .prep-cta-text { font-size:18px; font-weight:600; color:#fff; }
+  .prep-cta-sub { font-size:14px; color:var(--gray); margin-top:4px; }
+  .prep-cta-btn {
+    background:var(--gold);
+    color:#000;
+    font-size:14px; font-weight:700;
+    padding:14px 28px;
+    border-radius:100px;
+    border:none; cursor:pointer;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    white-space:nowrap;
+    transition:background 0.2s, transform 0.2s;
+    display:flex; align-items:center; gap:8px;
+  }
+  .prep-cta-btn:hover { background:#e8c97a; transform:translateY(-1px); }
+
+  /* MODAL */
+  .prep-modal-overlay {
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(12px);
+    z-index:9000;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s;
+    padding:20px;
+  }
+  .prep-modal-overlay.open { opacity:1; pointer-events:all; }
+  .prep-modal {
+    background:#111118;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:24px;
+    max-width:560px; width:100%;
+    padding:40px;
+    position:relative;
+    transform:scale(0.95) translateY(20px);
+    transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    max-height:85vh; overflow-y:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .prep-modal-overlay.open .prep-modal { transform:scale(1) translateY(0); }
+  .prep-modal-close {
+    position:absolute; top:20px; right:20px;
+    width:32px; height:32px; border-radius:50%;
+    background:rgba(255,255,255,0.07);
+    border:none; cursor:pointer;
+    color:var(--gray); font-size:18px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .prep-modal-close:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .prep-modal-eyebrow {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--gold);
+    margin-bottom:12px;
+  }
+  .prep-modal-title {
+    font-size:26px; font-weight:700;
+    color:#fff; margin-bottom:20px;
+    letter-spacing:-0.02em; line-height:1.2;
+  }
+  .prep-modal::-webkit-scrollbar { display:none; }
+  .prep-modal-body { font-size:15px; color:#aaa; line-height:1.7; }
+  .prep-modal-body strong { color:#fff; }
+  .prep-modal-body ul { padding-left:20px; margin:12px 0; }
+  .prep-modal-body li { margin-bottom:8px; }
+  .prep-modal-divider {
+    height:1px; background:rgba(255,255,255,0.07);
+    margin:24px 0;
+  }
+  .prep-modal-tag {
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:5px 12px; border-radius:100px;
+    border:1px solid rgba(201,168,76,0.3);
+    color:var(--gold); margin-right:6px; margin-top:6px;
+  }
+
+  /* Scroll animations base */
+  .reveal-left {
+    opacity:0; transform:translateX(-60px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-left.revealed { opacity:1; transform:translateX(0); }
+  .reveal-right {
+    opacity:0; transform:translateX(60px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-right.revealed { opacity:1; transform:translateX(0); }
+  .reveal-up {
+    opacity:0; transform:translateY(50px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-up.revealed { opacity:1; transform:translateY(0); }
+
+  @media(max-width:768px){
+    .prep-grid { grid-template-columns:1fr; }
+    .prep-stats { flex-direction:column; }
+    .prep-stat { border-right:none; border-bottom:1px solid rgba(255,255,255,0.07); }
+    .prep-stat:last-child { border-bottom:none; }
+    .prep-cta-row { flex-direction:column; gap:20px; text-align:center; }
+    .prep-headline { font-size:36px; }
+  }
+
+  .section-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.25em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; width:24px; height:1px; background:var(--gold); }
+
+  .s2-role { padding:100px 64px; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+  .role-title { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; letter-spacing:0.02em; color:var(--white); margin-bottom:24px; }
+  .role-desc { font-size:16px; line-height:1.8; color:rgba(255,255,255,0.6); margin-bottom:40px; }
+  .role-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border2); border:1px solid var(--border2); border-radius:2px; overflow:hidden; }
+  .stat-item { background:var(--card); padding:24px 20px; }
+  .stat-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--gray); text-transform:uppercase; margin-bottom:8px; }
+  .stat-value { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.05em; color:var(--white); }
+  .stat-value.gold { color:var(--gold); }
+
+  .req-list { list-style:none; }
+  .req-item { display:flex; align-items:flex-start; gap:14px; padding:16px 0; border-bottom:1px solid var(--border2); font-size:15px; color:rgba(255,255,255,0.7); line-height:1.5; }
+  .req-item:last-child { border-bottom:none; }
+  .req-num { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); min-width:24px; padding-top:2px; }
+
+  /* ═══════════════════════════════════
+     WHY THIS ROLE — APPLE SLIDESHOW
+  ═══════════════════════════════════ */
+  .s2-why {
+    background: var(--bg);
+    border-top: 1px solid var(--border2);
+    border-bottom: 1px solid var(--border2);
+  }
+
+  /* Header */
+  .why-header {
+    max-width: 1200px; margin: 0 auto;
+    padding: 80px 64px 0;
+  }
+  .why-headline {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1; letter-spacing: 0.02em;
+    color: var(--white); margin-top: 16px;
+  }
+  .why-headline span { color: var(--gold); }
+
+  /* Stage */
+  .why-stage {
+    position: relative;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    padding: 0 0 100px;
+    overflow: hidden;
+    margin: 80px 0;
+  }
+
+  /* Soft gradient bg per slide */
+  .why-stage-bg {
+    position: absolute; inset: 0; z-index: 0;
+    transition: background 0.8s ease;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+
+  /* Slide container */
+  .why-slides { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; }
+
+  .why-slide {
+    display: none;
+    position: absolute; inset: 0;
+    flex-direction: column; align-items: center; justify-content: flex-end;
+    padding-bottom: 120px;
+    animation: whySlideIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    pointer-events: none;
+  }
+  .why-slide.active { display: flex; }
+  .why-slide.exiting {
+    display: flex;
+    animation: whySlideOut 0.4s cubic-bezier(0.4,0,1,1) both;
+  }
+
+  @keyframes whySlideIn {
+    from { opacity:0; transform: translateY(24px) scale(0.98); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+  @keyframes whySlideOut {
+    from { opacity:1; transform: translateY(0) scale(1); }
+    to   { opacity:0; transform: translateY(-16px) scale(0.98); }
+  }
+
+  /* Text above device */
+  .why-slide-text {
+    position: relative; z-index: 5;
+    text-align: center; margin-bottom: 0;
+    padding: 0 24px;
+    pointer-events: auto;
+  }
+  .why-slide-num {
+    font-family:'JetBrains Mono',monospace;
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .why-slide-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(36px,5vw,64px);
+    letter-spacing: 0.02em; color: var(--white);
+    line-height: 1; margin-bottom: 14px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  }
+  .why-slide-desc {
+    font-size: 16px; color: rgba(255,255,255,0.65);
+    line-height: 1.7; max-width: 520px; margin: 0 auto;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+  }
+
+  /* Laptop/device frame */
+  /* Device — fullscreen video */
+  .why-device-wrap {
+    position: absolute; inset: 0; z-index: 1;
+    animation: deviceFloat 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes deviceFloat {
+    from { opacity:0; }
+    to   { opacity:1; }
+  }
+  .why-device { position:relative; width:100%; height:100%; }
+  .laptop-outer { width:100%; height:100%; padding:0; border-radius:0; background:none; box-shadow:none; }
+  .laptop-screen-bezel { width:100%; height:100%; border-radius:0; overflow:hidden; position:relative; background:#000; aspect-ratio:unset; }
+  .laptop-cam { display:none; }
+  .why-video { width:100%; height:100%; object-fit:cover; display:block; }
+  .laptop-reflection {
+    position:absolute; inset:0; z-index:3;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 25%, transparent 65%, rgba(10,10,15,0.95) 100%);
+    pointer-events:none;
+  }
+  .laptop-base { display:none; }
+  .laptop-trackpad { display:none; }
+  .device-glow { display:none; }
+
+  /* ── CONTROLS ── */
+  .why-controls {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex; align-items: center; gap: 20px;
+    background: rgba(20,20,30,0.7);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 10px 10px 10px 20px;
+    pointer-events: auto;
+  }
+
+  /* Dots */
+  .why-dots { display: flex; align-items: center; gap: 10px; }
+  .why-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: none; cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+    padding: 0;
+  }
+  .why-dot.active {
+    width: 28px; border-radius: 4px;
+    background: var(--white);
+  }
+
+  /* Play/Pause btn */
+  .why-playpause {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+    color: var(--white); flex-shrink: 0;
+  }
+  .why-playpause:hover { background: rgba(255,255,255,0.2); }
+  .why-playpause svg { width: 18px; height: 18px; }
+
+  /* Progress bar inside active dot */
+  .why-dot.active { position: relative; overflow: hidden; }
+  .why-dot-progress {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: var(--gold); border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── LIFE AT ARCA ── */
+  .s2-life {
+    background: #F5F5F7;
+    padding: 120px 0 0;
+    overflow: hidden;
+  }
+  .life-inner { max-width:1200px; margin:0 auto; padding:0 64px; }
+  .life-eyebrow {
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:0.25em;
+    color:#888; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .life-eyebrow::before { content:''; width:24px; height:1px; background:#888; }
+  .life-headline {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(56px, 8vw, 96px);
+    letter-spacing:0.01em; line-height:1;
+    color:#1d1d1f; margin-bottom:64px;
+  }
+  .life-headline span { color:#C9A84C; }
+  .life-stage {
+    position:relative; width:100%;
+    border-radius:20px 20px 0 0; overflow:hidden;
+    aspect-ratio:16/8; background:#111;
+  }
+  .life-slide {
+    position:absolute; inset:0;
+    opacity:0; transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+    pointer-events:none;
+  }
+  .life-slide.active { opacity:1; pointer-events:all; }
+  .life-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+  .life-slide::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:45%;
+    background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);
+  }
+  .life-slide-badge {
+    position:absolute; top:28px; left:28px; z-index:2;
+    font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:0.2em; text-transform:uppercase;
+    color:rgba(255,255,255,0.8);
+    background:rgba(0,0,0,0.35); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:6px 14px; border-radius:100px;
+  }
+  .life-tabs {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border-top:1px solid rgba(0,0,0,0.08);
+    background:#F5F5F7;
+  }
+  .life-tab {
+    padding:36px 32px 32px; cursor:pointer;
+    border-right:1px solid rgba(0,0,0,0.08);
+    position:relative; transition:background 0.25s; user-select:none;
+  }
+  .life-tab:last-child { border-right:none; }
+  .life-tab:hover { background:rgba(0,0,0,0.025); }
+  .life-tab-bar {
+    position:absolute; top:0; left:0; right:0; height:3px;
+    background:#e5e5e5; overflow:hidden;
+  }
+  .life-tab-bar-fill {
+    height:100%; width:0%; background:#1d1d1f;
+    transition:width 0s linear;
+  }
+  .life-tab.active .life-tab-bar-fill { width:100%; }
+  .life-tab-title {
+    font-family:'Bebas Neue',sans-serif; font-size:20px;
+    letter-spacing:0.05em; margin-bottom:10px;
+    color:#86868b; transition:color 0.2s;
+  }
+  .life-tab.active .life-tab-title { color:#1d1d1f; }
+  .life-tab-desc { font-size:13px; line-height:1.6; color:#86868b; transition:color 0.2s; }
+  .life-tab.active .life-tab-desc { color:#444; }
+
+  .life-values {
+    max-width:1200px; margin:80px auto 0; padding:0 64px 100px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  }
+  .life-value { opacity:0; transform:translateY(30px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .life-value.revealed { opacity:1; transform:translateY(0); }
+  .life-value-icon {
+    width:48px; height:48px; border-radius:12px;
+    background:rgba(201,168,76,0.1);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px; color:#C9A84C;
+  }
+  .life-value-icon svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .life-value-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.04em; color:#1d1d1f; margin-bottom:10px; }
+  .life-value-desc { font-size:14px; color:#86868b; line-height:1.65; }
+
+  @media(max-width:768px){
+    .life-tabs { grid-template-columns:1fr; }
+    .life-tab { border-right:none; border-bottom:1px solid rgba(0,0,0,0.08); }
+    .life-values { grid-template-columns:1fr; }
+    .life-stage { aspect-ratio:4/3; border-radius:12px 12px 0 0; }
+    .life-inner { padding:0 24px; }
+  }
+
+  /* team CSS removed */
+
+  /* ── AVATAR CHOOSER ── */
+  .s2-avatars {
+    background: #080810;
+    padding: 120px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-avatars::before {
+    content:''; position:absolute; top:-1px; left:0; right:0; height:80px;
+    background:linear-gradient(to bottom,var(--bg),transparent); pointer-events:none; z-index:1;
+  }
+  .avatars-glow {
+    position:absolute; width:700px; height:700px; border-radius:50%;
+    background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none;
+  }
+  .avatars-inner {
+    max-width:1300px; margin:0 auto; padding:0 60px; position:relative; z-index:2;
+  }
+  .avatars-header { margin-bottom:64px; }
+  .avatars-eyebrow {
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.25em;
+    color:var(--gold); text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .avatars-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+  .avatars-headline {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(48px,6vw,80px); line-height:1; letter-spacing:0.01em; color:#fff;
+  }
+  .avatars-headline span { color:var(--gold); }
+  .avatars-sub {
+    margin-top:14px; font-size:16px; color:rgba(255,255,255,0.45); max-width:460px; line-height:1.6;
+  }
+
+  /* Cards track */
+  .avatars-track-wrap { position:relative; }
+  .avatars-track {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    align-items:stretch;
+  }
+
+  /* Individual card */
+  .av-card {
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    background:#0f0f1a;
+    border:1px solid rgba(255,255,255,0.07);
+    /* smooth accordion */
+    grid-column: span 1;
+    transition:
+      grid-column 0s,
+      border-color 0.45s cubic-bezier(0.4,0,0.2,1),
+      box-shadow 0.45s cubic-bezier(0.4,0,0.2,1),
+      opacity 0.4s ease;
+    perspective:1200px;
+    min-height:480px;
+  }
+  .av-card.expanded {
+    grid-column: span 2;
+  }
+  /* Collapsed siblings shrink visually */
+  .avatars-track.has-expanded .av-card:not(.expanded) {
+    opacity:0.55;
+    transform:scale(0.98);
+    transition:
+      opacity 0.5s cubic-bezier(0.4,0,0.2,1),
+      transform 0.5s cubic-bezier(0.4,0,0.2,1),
+      border-color 0.45s,
+      box-shadow 0.45s;
+  }
+  .avatars-track.has-expanded .av-card:not(.expanded):hover {
+    opacity:0.75;
+    transform:scale(1);
+  }
+  .av-card.ceo-card {
+    border-color:rgba(201,168,76,0.35);
+    box-shadow:0 0 0 1px rgba(201,168,76,0.15), 0 20px 60px rgba(201,168,76,0.1);
+  }
+  .av-card.ceo-locked {
+    opacity: 0.75;
+    filter: grayscale(0.35);
+    cursor: not-allowed;
+  }
+  .av-card.ceo-locked .av-front-img { filter: brightness(0.85); }
+  .av-card.ceo-locked .av-ceo-badge { background: rgba(80,80,80,0.8); color: #aaa; }
+  .av-card.selected {
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px var(--gold), 0 20px 80px rgba(201,168,76,0.25);
+  }
+
+  /* Inner flip wrapper */
+  .av-flip {
+    width:100%; height:100%; min-height:480px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 0.65s cubic-bezier(0.4,0,0.2,1);
+  }
+  .av-card.expanded .av-flip { transform:rotateY(180deg); }
+
+  /* Front face */
+  .av-front {
+    position:absolute; inset:0;
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    border-radius:20px; overflow:hidden;
+  }
+  .av-front-img {
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover; object-position:top;
+    transition:transform 0.5s ease;
+  }
+  .av-card:hover .av-front-img { transform:scale(1.04); }
+  .av-front::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  }
+  .av-front-info {
+    position:relative; z-index:2; padding:28px 24px 24px;
+  }
+  .av-front-tap {
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em;
+    text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:10px;
+    transition:color 0.2s;
+  }
+  .av-card:hover .av-front-tap { color:rgba(255,255,255,0.6); }
+  .av-front-name {
+    font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.04em;
+    color:#fff; line-height:1; margin-bottom:6px;
+  }
+  .av-front-role {
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--gold);
+  }
+
+  /* CEO badge on front */
+  .av-ceo-badge {
+    position:absolute; top:20px; left:20px; z-index:3;
+    background:var(--gold); color:#000;
+    font-family:'JetBrains Mono',monospace; font-size:9px;
+    font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+    padding:5px 12px; border-radius:100px;
+  }
+  .av-style-badge {
+    position:absolute; top:20px; right:20px; z-index:3;
+    background:rgba(255,255,255,0.08); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.12);
+    font-family:'JetBrains Mono',monospace; font-size:9px;
+    letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);
+    padding:5px 12px; border-radius:100px;
+  }
+
+  /* Back face */
+  .av-back {
+    position:absolute; inset:0;
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    transform:rotateY(180deg);
+    border-radius:20px; overflow:hidden;
+    display:flex; flex-direction:column;
+    background:#0f0f1a;
+    padding:32px;
+    pointer-events:none; /* KEY: back is invisible & untouchable until flipped — same as AutoSmart wm-flip-back */
+  }
+  .av-card.expanded .av-back {
+    pointer-events:all; /* Only receive clicks when actually visible */
+  }
+  .av-card.expanded .av-front {
+    pointer-events:none; /* Front is rotated behind — ignore its clicks */
+  }
+  .av-back-split {
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    height:100%;
+  }
+  .av-back-photo {
+    width:100%; height:100%;
+    object-fit:cover; object-position:top;
+    border-radius:12px 0 0 12px;
+  }
+  .av-back-content {
+    padding:32px 28px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    overflow-y:auto; scrollbar-width:none;
+  }
+  .av-back-content::-webkit-scrollbar { display:none; }
+  .av-back-tag {
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:12px;
+  }
+  .av-back-name {
+    font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:0.02em;
+    color:#fff; line-height:1; margin-bottom:6px;
+  }
+  .av-back-role {
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em;
+    text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:20px;
+  }
+  .av-back-divider { height:1px; background:rgba(255,255,255,0.07); margin-bottom:20px; }
+  .av-back-desc {
+    font-size:14px; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:20px; flex:1;
+  }
+  .av-back-traits {
+    display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px;
+  }
+  .av-back-trait {
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em;
+    text-transform:uppercase; padding:4px 10px; border-radius:100px;
+    border:1px solid rgba(201,168,76,0.3); color:var(--gold);
+  }
+  .av-zoom-btn {
+    width:100%; padding:14px 20px;
+    background:var(--gold); color:#000;
+    font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    border:none; border-radius:12px; cursor:pointer;
+    transition:background 0.2s, transform 0.2s;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .av-zoom-btn:hover { background:#e8c97a; transform:translateY(-1px); }
+  .av-zoom-btn.ceo-btn {
+    background:transparent; color:var(--gold);
+    border:1px solid var(--gold);
+    margin-bottom:8px;
+  }
+  .av-zoom-btn.ceo-btn:hover { background:rgba(201,168,76,0.1); }
+  .av-back-close {
+    position:absolute; top:16px; right:16px; z-index:10;
+    width:32px; height:32px; border-radius:50%;
+    background:rgba(255,255,255,0.07); border:none; cursor:pointer;
+    color:rgba(255,255,255,0.5); font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .av-back-close:hover { background:rgba(255,255,255,0.15); color:#fff; }
+
+  @media(max-width:900px){
+    .avatars-track { grid-template-columns:repeat(2,1fr); }
+    .av-card.expanded { grid-column:span 2; }
+    .av-back-split { grid-template-columns:1fr; }
+    .av-back-photo { display:none; }
+    .avatars-inner { padding:0 24px; }
+  }
+
+  .s2-cta { padding:100px 64px; background:var(--card); border-top:1px solid var(--border2); text-align:center; }
+  .cta-inner { max-width:600px; margin:0 auto; }
+  .cta-title { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; letter-spacing:0.02em; margin-bottom:16px; }
+  .cta-sub { font-size:16px; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:40px; }
+  .cta-actions { display:flex; align-items:center; justify-content:center; gap:16px; }
+
+
+
+  /* ── TOAST ── */
+  .toast {
+    position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(80px);
+    background:#e05555; color:#fff; padding:12px 24px; border-radius:2px;
+    font-size:14px; transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    z-index:200; white-space:nowrap;
+  }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+  .toast.success-toast { background:#2a7a4f; }
+
+  /* ── TRANSITION OVERLAY ── */
+  .screen-transition {
+    position:fixed; inset:0; z-index:999;
+    background:var(--bg);
+    opacity:0; pointer-events:none;
+    transition:opacity 0.4s;
+  }
+  .screen-transition.active { opacity:1; pointer-events:all; }
+</style>
+  <script src="https://elevenlabs.io/convai-widget/index.js" async></script>
+  <script>  // ══════════════════════════════════
+  //  ZOOM SECTION LOGIC
+  // ══════════════════════════════════
+
+  const ZOOM_BASE = 'https://builtwithai.pro/meethr/media/';
+
+  const ZOOM_AGENTS = [
+    { id: 'viktoria', name: 'Вікторія', agentId: 'agent_5301kqnmhxp8ezg8b5xk0d0zwrbx', videoFile: '%D0%B2%D1%96%D0%BA%D1%82%D0%BE%D1%80%D1%96%D1%8F-zoom.mp4' },
+    { id: 'oleksii',  name: 'Олексій',  agentId: 'agent_8401kqnndgc2f4ft20m2adjr9ghw', videoFile: '%D0%BE%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9-zoom.mp4' },
+    { id: 'julia',    name: 'Джулія',   agentId: 'agent_7201kqnmwjg0exfaxvfgm3tbe02n', videoFile: '%D0%B4%D0%B6%D1%83%D0%BB%D1%96%D1%8F-zoom.mp4' },
+    { id: 'bogdan',   name: 'Богдан',   agentId: 'agent_2301kqnn5zd9fztt3t9dzjky6h52', videoFile: 'bogdan-zoom.mp4' },
+  ];
+
+  // zoom vars declared below
+  let zoomIntroPlayed = false;
+  let zoomCurrentAgent = null;
+
+  async function checkZoomAccess() {
+    const btn = document.getElementById('zoomAccessBtn');
+    if (btn) { btn.textContent = 'Checking...'; btn.disabled = true; }
+
+    try {
+      // ensure session is loaded
+      if (!session?.id) {
+        const stored = sessionStorage.getItem('arca_candidate');
+        if (stored) session = JSON.parse(stored);
+      }
+      if (!session?.id) {
+        if (btn) { btn.textContent = 'Already had your interview? →'; btn.disabled = false; }
+        showToast('Please log in first to check your access.', false);
+        return;
+      }
+
+      const res = await sbFetch(`/rest/v1/candidates?id=eq.${session.id}&select=status&limit=1`);
+      const data = await res.json();
+      const candidateStatus = data?.[0]?.status;
+
+      if (candidateStatus === 'interviewed' || candidateStatus === 'approved' || candidateStatus === 'zoom_access') {
+        if (btn) { btn.style.display = 'none'; }
+        openZoomSection();
+      } else {
+        if (btn) { btn.textContent = 'Interview not completed yet →'; btn.disabled = false; }
+        showToast('Complete your interview first to unlock ZOOM. Current status: ' + (candidateStatus || 'registered'), false);
+      }
+    } catch(e) {
+      console.error('checkZoomAccess error:', e);
+      if (btn) { btn.textContent = 'Already had your interview? →'; btn.disabled = false; }
+      showToast('Could not verify access. Please try again.', false);
+    }
+  }
+
+  function openZoomSection() {
+    const section = document.getElementById('zoomSection');
+    if (!section) return;
+
+    // smooth reveal
+    section.style.display = 'block';
+    section.style.opacity = '0';
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { section.style.transition = 'opacity 0.6s'; section.style.opacity = '1'; }, 100);
+    setupZoomWidgetVisibility();
+
+    // показуємо футер під zoom
+    const footer = document.getElementById('zoomFooter');
+    if (footer) footer.style.display = 'block';
+
+    // play intro video
+    const vid = document.getElementById('zoomVideo');
+    if (vid && !zoomIntroPlayed) {
+      vid.src = ZOOM_BASE + 'Notebook-360.mp4';
+      vid.loop = false;
+      vid.load();
+      vid.play().catch(() => {});
+      vid.onended = () => {
+        // switch to team listening loop
+        vid.src = ZOOM_BASE + 'Team-Listening.mp4';
+        vid.loop = true;
+        vid.load();
+        vid.play().catch(() => {});
+        zoomIntroPlayed = true;
+      };
+    }
+  }
+
+  function setZoomSpeaker(agentId) {
+    const agent = ZOOM_AGENTS.find(a => a.agentId === agentId || a.id === agentId);
+    if (!agent) return;
+    zoomCurrentAgent = agent.id;
+
+    // switch video
+    const vid = document.getElementById('zoomVideo');
+    if (vid) {
+      vid.style.opacity = '0';
+      setTimeout(() => {
+        vid.src = ZOOM_BASE + agent.videoFile;
+        vid.loop = true;
+        vid.load();
+        vid.play().catch(() => {});
+        vid.style.transition = 'opacity 0.3s';
+        vid.style.opacity = '1';
+      }, 200);
+    }
+
+    // highlight active avatar with gold ring
+    ZOOM_AGENTS.forEach(a => {
+      const el = document.getElementById('zoom-avatar-' + a.id);
+      const ring = document.getElementById('zoom-ring-' + a.id);
+      if (el) el.style.opacity = a.id === agent.id ? '1' : '0.35';
+      if (ring) ring.style.boxShadow = a.id === agent.id ? '0 0 0 3px #C9A84C' : '0 0 0 0px #C9A84C';
+    });
+  }
+
+  function selectZoomAgent(agentId) {
+    const agent = ZOOM_AGENTS.find(a => a.id === agentId);
+    if (!agent?.agentId) return;
+    // launch agent but keep Team-Listening video until call actually starts
+    launchZoomAgent(agent, true);
+  }
+
+  function resetZoomToListening() {
+    zoomCurrentAgent = null;
+    const vid = document.getElementById('zoomVideo');
+    if (vid) {
+      vid.style.opacity = '0';
+      setTimeout(() => {
+        vid.src = ZOOM_BASE + 'Team-Listening.mp4';
+        vid.loop = true;
+        vid.load();
+        vid.play().catch(() => {});
+        vid.style.transition = 'opacity 0.3s';
+        vid.style.opacity = '1';
+      }, 200);
+    }
+    ZOOM_AGENTS.forEach(a => {
+      const el = document.getElementById('zoom-avatar-' + a.id);
+      const ring = document.getElementById('zoom-ring-' + a.id);
+      if (el) el.style.opacity = '0.4';
+      if (ring) ring.style.boxShadow = '0 0 0 0px #C9A84C';
+    });
+  }
+
+  // ── ZOOM widget visibility based on scroll ──
+  function setupZoomWidgetVisibility() {
+    const zoomSection = document.getElementById('zoomSection');
+    if (!zoomSection) return;
+
+    // inject global style to control widget visibility
+    const styleEl = document.createElement('style');
+    styleEl.id = 'zoom-widget-visibility';
+    styleEl.textContent = 'elevenlabs-convai { opacity: 0 !important; pointer-events: none !important; transition: opacity 0.3s; }';
+    document.head.appendChild(styleEl);
+
+    const observer = new IntersectionObserver((entries) => {
+      const isVisible = entries[0].isIntersecting;
+      const style = document.getElementById('zoom-widget-visibility');
+      if (style) {
+        style.textContent = isVisible
+          ? 'elevenlabs-convai { opacity: 1 !important; pointer-events: all !important; transition: opacity 0.3s; }'
+          : 'elevenlabs-convai { opacity: 0 !important; pointer-events: none !important; transition: opacity 0.3s; }';
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(zoomSection);
+  }
+
+  // ── ZOOM: simple reliable agent switching ──
+  let zoomWidget = null;
+  let zoomObserver = null;
+  let zoomAgentIndex = 0;
+  let zoomAgents = [];     // shuffled at start
+  let zoomIsSpeaking = false;
+
+  function buildZoomQueue() {
+    const available = ZOOM_AGENTS.filter(a => a.agentId);
+    // shuffle
+    zoomAgents = [...available].sort(() => Math.random() - 0.5);
+    zoomAgentIndex = 0;
+  }
+
+  function launchZoomAgent(agent, keepListening) {
+    // clean up previous
+    if (zoomObserver) { zoomObserver.disconnect(); zoomObserver = null; }
+    if (zoomWidget) { zoomWidget.remove(); zoomWidget = null; }
+
+    // hide "next" button while loading
+    const nextBtn = document.getElementById('zoomNextBtn');
+    if (nextBtn) nextBtn.style.display = 'none';
+
+    document.getElementById('zoomStatusText').textContent = agent.name + ' is ready. Press Start a call.';
+    // always show Team-Listening until call actually starts
+    // just highlight the selected avatar
+    ZOOM_AGENTS.forEach(a => {
+      const el = document.getElementById('zoom-avatar-' + a.id);
+      const ring = document.getElementById('zoom-ring-' + a.id);
+      if (el) el.style.opacity = a.id === agent.id ? '1' : '0.35';
+      if (ring) ring.style.boxShadow = a.id === agent.id ? '0 0 0 3px #C9A84C' : '0 0 0 0px #C9A84C';
+    });
+
+    const wrap = document.getElementById('zoomWidgetWrap');
+    const widget = document.createElement('elevenlabs-convai');
+    widget.setAttribute('agent-id', agent.agentId);
+    widget.setAttribute('variant', 'compact');
+    widget.setAttribute('collapsible', 'false');
+    widget.style.cssText = [
+      '--el-bg-color:#f5f5f7',
+      '--el-text-color:#1d1d1f',
+      '--el-border-color:rgba(0,0,0,0.1)',
+      '--el-border-radius:980px',
+      '--el-btn-color:#1d1d1f',
+      '--el-btn-text-color:#fff',
+      '--el-btn-radius:980px',
+      '--el-focus-color:#C9A84C',
+      'width:100%',
+      'display:block'
+    ].join(';');
+    wrap.appendChild(widget);
+    zoomWidget = widget;
+    zoomIsSpeaking = false;
+
+    // call-started → switch to agent speaking video
+    widget.addEventListener('elevenlabs-convai:call-started', () => {
+      document.getElementById('zoomStatusText').textContent = '';
+      setZoomSpeaker(agent.id);
+    });
+
+    // call-ended: show restart or next button
+    widget.addEventListener('elevenlabs-convai:call-ended', () => {
+      resetZoomToListening();
+      const hasNext = zoomAgentIndex < zoomAgents.length;
+      if (hasNext && nextBtn) {
+        const nextAgent = zoomAgents[zoomAgentIndex];
+        nextBtn.textContent = 'Talk to ' + nextAgent.name + ' →';
+        nextBtn.style.display = 'inline-block';
+      }
+      document.getElementById('zoomStatusText').textContent = agent.name + ' left the call.';
+    });
+
+    // auto-click start after render
+    setTimeout(() => {
+      const shadow = widget.shadowRoot;
+      if (!shadow) return;
+
+      // hide branding
+      const styleEl = document.createElement('style');
+      styleEl.textContent = [
+        '[class*="_poweredBy_"]{display:none!important}',
+        '[class*="_feedback_"]{display:none!important}',
+        '[class*="_minimize_"]{display:none!important}'
+      ].join('');
+      shadow.appendChild(styleEl);
+
+      // auto-click start button
+      const startBtn = shadow.querySelector('button');
+      if (startBtn) startBtn.click();
+
+      // speaking detection via opacity on avatarImage — no text polling
+      let speakDebounce = null;
+      zoomObserver = new MutationObserver(() => {
+        const avatarImg = shadow.querySelector('[class*="_avatarImage_"]');
+        if (!avatarImg) return;
+        const style = avatarImg.getAttribute('style') || '';
+        const m = style.match(/opacity:\s*([\d.]+)/);
+        if (!m) return;
+        const opacity = parseFloat(m[1]);
+        const nowSpeaking = opacity < 0.6;  // low opacity = agent speaking (avatar pulses down)
+
+        if (nowSpeaking === zoomIsSpeaking) return; // no change
+
+        if (speakDebounce) clearTimeout(speakDebounce);
+        speakDebounce = setTimeout(() => {
+          zoomIsSpeaking = nowSpeaking;
+          if (nowSpeaking) {
+            setZoomSpeaker(agent.id);
+          } else {
+            resetZoomToListening();
+          }
+        }, 400);
+      });
+      zoomObserver.observe(shadow, { attributes: true, subtree: true, attributeFilter: ['style'] });
+
+    }, 1000);
+  }
+
+  function switchToNextZoomAgent() {
+    const nextAgent = zoomAgents[zoomAgentIndex];
+    if (!nextAgent) {
+      document.getElementById('zoomStatusText').textContent = 'All team members have spoken. Thank you!';
+      return;
+    }
+    zoomAgentIndex++;
+    launchZoomAgent(nextAgent);
+  }
+
+  function startZoom() {
+    const available = ZOOM_AGENTS.filter(a => a.agentId);
+    if (!available.length) {
+      document.getElementById('zoomStatusText').textContent = 'ZOOM agents not configured yet.';
+      return;
+    }
+    document.getElementById('zoomStartBtn').style.display = 'none';
+    buildZoomQueue();
+    const first = zoomAgents[zoomAgentIndex++];
+    launchZoomAgent(first, true);  // keepListening until user presses Start a call
+  }
+
+
+</script>
+</head>
+<body>
+
+<!-- SHARED BACKGROUND -->
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+<div class="scanline"></div>
+
+<!-- TRANSITION OVERLAY -->
+<div class="screen-transition" id="transition"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════
+     SCREEN 1 — REGISTRATION
+════════════════════════════════ -->
+<div class="screen active" id="screen1">
+  <!-- Osiris background -->
+  <div id="osiris-bg-img"></div>
+  <video id="osiris-bg-video" autoplay loop muted playsinline src="https://builtwithai.pro/meethr/media/osiris-login.mp4"></video>
+  <div class="portal">
+    <div class="logo-row">
+      <div class="logo-mark"></div>
+      <span class="logo-text">ARCA <span>Robotics</span></span>
+      <div class="logo-sep"></div>
+      <span class="logo-sub">Interview Portal</span>
+    </div>
+
+    <div class="card" id="mainCard">
+      <div class="card-corner tl"></div>
+      <div class="card-corner tr"></div>
+      <div class="card-corner bl"></div>
+      <div class="card-corner br"></div>
+
+      <!-- REG FORM -->
+      <div id="regForm">
+        <div class="steps">
+          <div class="step active" id="step1"><div class="step-num">1</div><span>Account</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step2"><div class="step-num">2</div><span>Position</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step3"><div class="step-num">3</div><span>Interview</span></div>
+        </div>
+        <div class="portal-tag">Welcome</div>
+        <h1 class="portal-title">Create your<br>account</h1>
+        <p class="portal-sub">Your personal interview portal is ready. Set up your account to continue.</p>
+        <div class="vacancy-badge" id="vacancyBadge">Loading position...</div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="firstName">First Name</label>
+            <input class="field-input" type="text" id="firstName" placeholder="Олена" autocomplete="given-name">
+            <div class="field-error" id="firstNameErr">Required</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="lastName">Last Name</label>
+            <input class="field-input" type="text" id="lastName" placeholder="Савченко" autocomplete="family-name">
+            <div class="field-error" id="lastNameErr">Required</div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="email">Email</label>
+          <input class="field-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
+          <div class="field-error" id="emailErr">Enter a valid email</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="password">Password</label>
+          <div class="field-wrap">
+            <input class="field-input" type="password" id="password" placeholder="Min 8 characters" autocomplete="new-password">
+            <button class="pw-toggle" type="button" onclick="togglePw('password','pwToggle')" id="pwToggle">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="pw-strength"><div class="pw-bar" id="bar1"></div><div class="pw-bar" id="bar2"></div><div class="pw-bar" id="bar3"></div></div>
+          <div class="field-error" id="passwordErr">Min 8 characters</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="confirm">Confirm Password</label>
+          <div class="field-wrap">
+            <input class="field-input" type="password" id="confirm" placeholder="Repeat password" autocomplete="new-password">
+            <button class="pw-toggle" type="button" onclick="togglePw('confirm','confirmToggle')" id="confirmToggle">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="confirmErr">Passwords do not match</div>
+        </div>
+        <hr class="divider">
+        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+          <div class="spinner"></div>
+          <span class="btn-text">Create Account & Continue</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <p class="portal-note">By continuing you agree to ARCA's <a href="#">Privacy Policy</a>.<br>Your data is encrypted and never shared.</p>
+        <div class="login-row">Already have an account? <a href="#" onclick="showLogin()">Sign in</a></div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm" style="display:none;">
+        <div class="portal-tag">Welcome back</div>
+        <h1 class="portal-title">Sign in to<br>your portal</h1>
+        <p class="portal-sub">Continue where you left off. Your progress is saved.</p>
+        <div class="field">
+          <label class="field-label" for="loginEmail">Email</label>
+          <input class="field-input" type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+          <div class="field-error" id="loginEmailErr">Enter a valid email</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="loginPassword">Password</label>
+          <div class="field-wrap">
+            <input class="field-input" type="password" id="loginPassword" placeholder="Your password" autocomplete="current-password">
+            <button class="pw-toggle" type="button" onclick="togglePw('loginPassword','loginPwToggle')" id="loginPwToggle">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="loginPasswordErr">Incorrect password</div>
+        </div>
+        <hr class="divider">
+        <button class="btn-submit" id="loginBtn" onclick="handleLogin()">
+          <div class="spinner"></div>
+          <span class="btn-text">Sign In & Continue</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <div class="login-row" style="margin-top:20px;">New here? <a href="#" onclick="showRegister()">Create account</a></div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✓</div>
+        <h2 class="success-title">You're in, <span id="successName">—</span>.</h2>
+        <p class="success-sub">Your account is ready.<br>Let's show you your position and prepare for the interview.</p>
+        <button class="btn-continue" onclick="goToScreen2()">View Your Position →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     SCREEN 2 — VACANCY
+════════════════════════════════ -->
+<div class="screen" id="screen2">
+
+  <!-- NAV -->
+  <nav class="s2-nav">
+    <div class="s2-nav-logo">
+      <div class="s2-nav-mark"></div>
+      <span class="s2-nav-text">ARCA <span>Robotics</span></span>
+    </div>
+    <div class="s2-nav-right">
+      <div class="s2-nav-candidate">Welcome, <span id="navName">—</span></div>
+      <div class="s2-nav-step"><div class="s2-step-dot"></div>Step 2 of 3</div>
+    </div>
+  </nav>
+
+
+
+  <!-- HERO -->
+  <section class="s2-hero">
+    <video class="s2-video" id="heroVideo" autoplay muted loop playsinline>
+      <source id="heroVideoSrc" src="" type="video/mp4">
+    </video>
+    <div class="s2-overlay"></div>
+    <div class="s2-overlay-l"></div>
+    <div class="s2-scanline"></div>
+    <div class="s2-hero-content">
+      <div class="s2-tag" id="heroTag">Your Position</div>
+      <div class="s2-greeting">Welcome, <span id="heroName">—</span>. We've been expecting you.</div>
+      <h1 class="s2-title" id="heroTitle">—</h1>
+      <div class="s2-meta" id="heroMeta"></div>
+      <div class="s2-actions">
+        <a href="#s2role" class="btn-primary">Explore Your Role <span class="arr">→</span></a>
+        <button class="btn-ghost" onclick="saveForLater()">Bookmark for later ↓</button>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-hint-text">Scroll</div>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- SECTIONS -->
+  <div class="s2-sections">
+    <section class="s2-role" id="s2role">
+      <div>
+        <div class="section-label">About the role</div>
+        <h2 class="role-title" id="roleTitle">—</h2>
+        <p class="role-desc" id="roleDesc">—</p>
+        <div class="role-stats" id="roleStats"></div>
+      </div>
+      <div>
+        <div class="section-label">What we expect</div>
+        <ul class="req-list" id="reqList"></ul>
+      </div>
+    </section>
+
+    <section class="s2-why" id="whySection">
+      <div class="why-header">
+        <div class="section-label">Why this role</div>
+        <h2 class="why-headline">Three reasons to <span>say yes.</span></h2>
+      </div>
+      <div class="why-stage">
+        <div class="why-stage-bg" id="whyStageBg"></div>
+        <div class="why-slides" id="whySlides"></div>
+        <div class="why-controls">
+          <div class="why-dots" id="whyDots"></div>
+          <button class="why-playpause" id="whyPlayPause" onclick="whyTogglePlay()">
+            <svg id="ppIcon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <rect x="6" y="4" width="4" height="16" rx="1"/>
+              <rect x="14" y="4" width="4" height="16" rx="1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PREP SECTION ── -->
+    <section class="s2-prep" id="s2prep">
+      <div class="prep-glow"></div>
+      <div class="prep-inner">
+        <div class="prep-header">
+          <div class="prep-eyebrow reveal-left">Interview Preparation</div>
+          <h2 class="prep-headline">
+            <span class="line-wrap"><span class="line-inner">Get ready.</span></span>
+            <span class="line-wrap"><span class="line-inner" style="transition-delay:0.12s">You've got <span style="color:var(--gold)">this.</span></span></span>
+          </h2>
+          <p class="prep-subline">Everything you need to walk in with confidence. Tap any card to learn more.</p>
+        </div>
+
+        <div class="prep-stats" id="prepStats">
+          <div class="prep-stat">
+            <div class="prep-stat-num"><span class="counter" data-target="15">0</span>–<span class="counter" data-target="20">0</span><span class="gold"> min</span></div>
+            <div class="prep-stat-label">Interview Duration</div>
+          </div>
+          <div class="prep-stat">
+            <div class="prep-stat-num"><span class="counter" data-target="6">0</span></div>
+            <div class="prep-stat-label">Questions Asked</div>
+          </div>
+          <div class="prep-stat">
+            <div class="prep-stat-num"><span class="counter" data-target="24">0</span><span class="gold">h</span></div>
+            <div class="prep-stat-label">Response Time</div>
+          </div>
+          <div class="prep-stat">
+            <div class="prep-stat-num"><span class="counter" data-target="100">0</span><span class="gold">%</span></div>
+            <div class="prep-stat-label">AI-Powered</div>
+          </div>
+        </div>
+
+        <div class="prep-grid" id="prepGrid">
+          <div class="prep-card" onclick="openPrepModal('duration')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="prep-card-title">How long does it take?</div>
+            <div class="prep-card-desc">The interview is relaxed and conversational. Expect 15–20 minutes with your chosen AI interviewer.</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+          <div class="prep-card" onclick="openPrepModal('evaluation')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+            <div class="prep-card-title">What will be evaluated?</div>
+            <div class="prep-card-desc">Creativity, strategic thinking, and how you tell a story. No trick questions — just real conversation.</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+          <div class="prep-card" onclick="openPrepModal('prepare')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+            <div class="prep-card-title">What should I prepare?</div>
+            <div class="prep-card-desc">Specific tips for the Marketing Lead role — what to think about before you hit "Start Interview".</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+          <div class="prep-card" onclick="openPrepModal('tech')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+            <div class="prep-card-title">Technical requirements</div>
+            <div class="prep-card-desc">Microphone, browser, connection. Make sure everything works before you start so nothing interrupts the flow.</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+          <div class="prep-card" onclick="openPrepModal('restart')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+            <div class="prep-card-title">Can I restart?</div>
+            <div class="prep-card-desc">Good to know before you start. Short answer: yes, once. Here is how it works and what happens to your previous session.</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+          <div class="prep-card" onclick="openPrepModal('after')">
+            <div class="prep-card-icon"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            <div class="prep-card-title">What happens after?</div>
+            <div class="prep-card-desc">After the interview, Олексій reviews your conversation and reaches out personally within 24 hours.</div>
+            <div class="prep-card-plus">+</div>
+          </div>
+        </div>
+
+        <div class="prep-cta-row" id="prepCta">
+          <div>
+            <div class="prep-cta-text">Ready to meet your interviewer?</div>
+            <div class="prep-cta-sub">Choose who you want to talk to — and let's begin.</div>
+          </div>
+          <button class="prep-cta-btn" onclick="document.querySelector('.s2-cta').scrollIntoView({behavior:'smooth'})">
+            Choose Interviewer <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREP MODALS -->
+    <div class="prep-modal-overlay" id="prepModalOverlay" onclick="closePrepModal(event)">
+      <div class="prep-modal" id="prepModalBox">
+        <button class="prep-modal-close" onclick="closePrepModalDirect()">✕</button>
+        <div class="prep-modal-eyebrow" id="pmEyebrow">Interview Prep</div>
+        <div class="prep-modal-title" id="pmTitle"></div>
+        <div class="prep-modal-body" id="pmBody"></div>
+      </div>
+    </div>
+
+    <!-- ── LIFE AT ARCA ── -->
+    <section class="s2-life" id="s2life">
+      <div class="life-inner">
+        <div class="life-eyebrow">Inside ARCA</div>
+        <div class="life-headline">Life at <span>ARCA.</span></div>
+      </div>
+
+      <!-- Big image stage -->
+      <div style="max-width:1200px; margin:0 auto; padding:0 64px;">
+        <div class="life-stage" id="lifeStage">
+
+          <div class="life-slide active" id="lifeSlide0">
+            <img src="https://builtwithai.pro/meethr/media/The%20Office.jpg" alt="The Office" loading="lazy">
+            <div class="life-slide-badge">Munich · HQ</div>
+          </div>
+
+          <div class="life-slide" id="lifeSlide1">
+            <img src="https://builtwithai.pro/meethr/media/The%20Lab.jpg" alt="The Lab" loading="lazy">
+            <div class="life-slide-badge">R&D · Testing Facility</div>
+          </div>
+
+          <div class="life-slide" id="lifeSlide2">
+            <img src="https://builtwithai.pro/meethr/media/The%20Mission.jpg" alt="The Mission" loading="lazy">
+            <div class="life-slide-badge">ARCA · World HQ</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tabs row -->
+      <div style="max-width:1200px; margin:0 auto; padding:0 64px;">
+        <div class="life-tabs">
+
+          <div class="life-tab active" id="lifeTab0" onclick="lifeGoTo(0)">
+            <div class="life-tab-bar"><div class="life-tab-bar-fill" id="lifeBar0"></div></div>
+            <div class="life-tab-title">The Office</div>
+            <div class="life-tab-desc">Our Munich HQ is where ideas become robots. Open labs, fast iteration, no bureaucracy — just engineers building the future side by side.</div>
+          </div>
+
+          <div class="life-tab" id="lifeTab1" onclick="lifeGoTo(1)">
+            <div class="life-tab-bar"><div class="life-tab-bar-fill" id="lifeBar1"></div></div>
+            <div class="life-tab-title">The Lab</div>
+            <div class="life-tab-desc">Real problems, real hardware, real pressure. Our testing facility runs 24/7 — because Osiris doesn't stop learning and neither do we.</div>
+          </div>
+
+          <div class="life-tab" id="lifeTab2" onclick="lifeGoTo(2)">
+            <div class="life-tab-bar"><div class="life-tab-bar-fill" id="lifeBar2"></div></div>
+            <div class="life-tab-title">The Mission</div>
+            <div class="life-tab-desc">We're not building software. We're building machines that work alongside humans — and every person here knows exactly why that matters.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="life-values" id="lifeValues">
+        <div class="life-value">
+          <div class="life-value-icon">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="life-value-title">Move Fast, Build Real</div>
+          <div class="life-value-desc">We ship hardware, not slides. Speed is a value — but we move fast because we care about getting it right, not because we're reckless.</div>
+        </div>
+        <div class="life-value" style="transition-delay:0.1s">
+          <div class="life-value-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="life-value-title">Small Team, Huge Ownership</div>
+          <div class="life-value-desc">There are no middle managers between you and the robot. Every person here owns something that matters — and everyone knows it.</div>
+        </div>
+        <div class="life-value" style="transition-delay:0.2s">
+          <div class="life-value-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          </div>
+          <div class="life-value-title">Built for the Long Game</div>
+          <div class="life-value-desc">We're not optimising for next quarter. We're building infrastructure for the next 20 years — and we hire people who think the same way.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AVATAR CHOOSER ── -->
+    <section class="s2-avatars" id="s2avatars">
+      <div class="avatars-glow"></div>
+      <div class="avatars-inner">
+
+        <div class="avatars-header">
+          <div class="avatars-eyebrow">Step 2 of 2</div>
+          <h2 class="avatars-headline">Choose who you want<br>to <span>talk to.</span></h2>
+          <p class="avatars-sub">Each interviewer has their own style. Pick the one that feels right — there's no wrong choice.</p>
+        </div>
+
+        <div class="avatars-track" id="avatarsTrack"></div>
+
+      </div>
+    </section>
+
+    <section class="s2-cta" id="ctaSection">
+      <div class="cta-inner">
+        <div class="section-label" style="justify-content:center;">Ready?</div>
+        <h2 class="cta-title">Let's start your<br><span style="color:var(--gold)">interview</span></h2>
+        <p class="cta-sub" id="ctaSub">Your AI interviewer is ready. The conversation takes about 15–20 minutes.</p>
+        <div class="cta-actions">
+          <button class="btn-primary" onclick="goToScreen3()">Start Interview <span class="arr">→</span></button>
+        </div>
+        <div style="margin-top:20px;">
+          <button id="zoomAccessBtn" onclick="checkZoomAccess()" style="background:none;border:none;color:#8E8EA0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+            onmouseover="this.style.color='#C9A84C';this.style.borderBottomColor='#C9A84C';"
+            onmouseout="this.style.color='#8E8EA0';this.style.borderBottomColor='rgba(255,255,255,0.1)';">
+            Already had your interview? →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         ZOOM SECTION (locked by default)
+    ═══════════════════════════════ -->
+    <section id="zoomSection" style="display:none;">
+
+      <!-- INTRO: Apple-style light design -->
+      <div id="zoomIntro" style="background:#f5f5f7;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center;">
+
+        <!-- Label -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.3em;color:#6e6e73;text-transform:uppercase;margin-bottom:24px;">
+          ARCA Robotics · Final Round
+        </div>
+
+        <!-- Title -->
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:700;color:#1d1d1f;margin:0 0 16px;line-height:1.05;">
+          Meet the<br><span style="background:linear-gradient(135deg,#C9A84C,#E8C97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">full team.</span>
+        </h2>
+
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6e6e73;max-width:520px;line-height:1.6;margin:0 0 60px;">
+          This is your final conversation before a decision is made. The whole team joins — each with something different to ask.
+        </p>
+
+        <!-- Laptop video container -->
+        <div id="zoomVideoWrap" style="width:min(920px,94vw);position:relative;margin-bottom:56px;">
+          <video id="zoomVideo" muted playsinline
+            style="width:100%;border-radius:16px;box-shadow:0 32px 80px rgba(0,0,0,0.15);display:block;">
+          </video>
+        </div>
+
+        <!-- Team names row -->
+        <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;">
+          <div id="zoom-avatar-viktoria" onclick="selectZoomAgent('viktoria')"
+            style="text-align:center;opacity:0.4;transition:all 0.3s;cursor:pointer;padding:8px;border-radius:16px;"
+            onmouseover="this.style.background='rgba(0,0,0,0.05)'"
+            onmouseout="this.style.background='none'">
+            <div style="width:56px;height:56px;border-radius:50%;background:#1d1d1f;margin:0 auto 8px;overflow:hidden;box-shadow:0 0 0 0px #C9A84C;transition:box-shadow 0.3s;" id="zoom-ring-viktoria">
+              <img src="https://builtwithai.pro/meethr/media/%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%D1%96%D1%8F.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#1d1d1f;">Вікторія</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6e73;letter-spacing:0.1em;">HEAD OF TALENT</div>
+          </div>
+          <div id="zoom-avatar-oleksii" onclick="selectZoomAgent('oleksii')"
+            style="text-align:center;opacity:0.4;transition:all 0.3s;cursor:pointer;padding:8px;border-radius:16px;"
+            onmouseover="this.style.background='rgba(0,0,0,0.05)'"
+            onmouseout="this.style.background='none'">
+            <div style="width:56px;height:56px;border-radius:50%;background:#1d1d1f;margin:0 auto 8px;overflow:hidden;box-shadow:0 0 0 0px #C9A84C;transition:box-shadow 0.3s;" id="zoom-ring-oleksii">
+              <img src="https://builtwithai.pro/meethr/media/%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#1d1d1f;">Олексій</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6e73;letter-spacing:0.1em;">TALENT CURATOR</div>
+          </div>
+          <div id="zoom-avatar-julia" onclick="selectZoomAgent('julia')"
+            style="text-align:center;opacity:0.4;transition:all 0.3s;cursor:pointer;padding:8px;border-radius:16px;"
+            onmouseover="this.style.background='rgba(0,0,0,0.05)'"
+            onmouseout="this.style.background='none'">
+            <div style="width:56px;height:56px;border-radius:50%;background:#1d1d1f;margin:0 auto 8px;overflow:hidden;box-shadow:0 0 0 0px #C9A84C;transition:box-shadow 0.3s;" id="zoom-ring-julia">
+              <img src="https://builtwithai.pro/meethr/media/%D0%94%D0%B6%D1%83%D0%BB%D1%96%D1%8F.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#1d1d1f;">Джулія</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6e73;letter-spacing:0.1em;">PEOPLE & CULTURE</div>
+          </div>
+          <div id="zoom-avatar-bogdan" onclick="selectZoomAgent('bogdan')"
+            style="text-align:center;opacity:0.4;transition:all 0.3s;cursor:pointer;padding:8px;border-radius:16px;"
+            onmouseover="this.style.background='rgba(0,0,0,0.05)'"
+            onmouseout="this.style.background='none'">
+            <div style="width:56px;height:56px;border-radius:50%;background:#1d1d1f;margin:0 auto 8px;overflow:hidden;box-shadow:0 0 0 0px #C9A84C;transition:box-shadow 0.3s;" id="zoom-ring-bogdan">
+              <img src="https://builtwithai.pro/meethr/media/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD-CEO.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#1d1d1f;">Богдан</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6e73;letter-spacing:0.1em;">FOUNDER & CEO</div>
+          </div>
+        </div>
+
+        <!-- START ZOOM button -->
+        <button id="zoomStartBtn" onclick="startZoom()"
+          style="background:#1d1d1f;color:#fff;border:none;border-radius:980px;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;padding:18px 48px;cursor:pointer;transition:all 0.3s;letter-spacing:0.01em;"
+          onmouseover="this.style.background='#C9A84C';this.style.color='#1d1d1f';"
+          onmouseout="this.style.background='#1d1d1f';this.style.color='#fff';">
+          Start ZOOM Call
+        </button>
+
+        <p id="zoomStatusText" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6e6e73;margin-top:20px;letter-spacing:0.1em;min-height:20px;"></p>
+
+        <!-- ElevenLabs widget for ZOOM -->
+        <div id="zoomWidgetWrap" style="margin-top:24px;width:min(400px,90vw);"></div>
+
+
+      </div>
+
+    </section>
+
+    </div>
+
+    <!-- ZOOM FOOTER — контакт + app посилання під zoom секцією -->
+    <div id="zoomFooter" style="display:none;background:#0A0A0F;border-top:1px solid rgba(201,168,76,0.12);padding:40px 24px;">
+      <div style="max-width:560px;margin:0 auto;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:20px;text-align:center;">Stay connected</div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <a href="https://t.me/oleks_khvylya" target="_blank" rel="noopener"
+            style="display:flex;align-items:center;gap:8px;padding:12px 20px;background:#0D0D1A;border:1px solid rgba(201,168,76,0.2);border-radius:12px;text-decoration:none;color:#C9A84C;font-size:13px;font-weight:500;transition:all 0.2s;"
+            onmouseover="this.style.borderColor='rgba(201,168,76,0.5)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.322 14.4l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.826.159z"/></svg>
+            @oleks_khvylya
+          </a>
+          <a href="https://builtwithai.pro/meethr-pwa/" target="_blank"
+            style="display:flex;align-items:center;gap:8px;padding:12px 20px;background:#0D0D1A;border:1px solid rgba(255,255,255,0.08);border-radius:12px;text-decoration:none;color:#C0C0C8;font-size:13px;font-weight:500;transition:all 0.2s;"
+            onmouseover="this.style.borderColor='rgba(255,255,255,0.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            Track application status
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     SCREEN 3 — INTERVIEW (placeholder)
+════════════════════════════════ -->
+<div class="screen" id="screen3">
+
+  <!-- NAV -->
+  <nav class="s2-nav" style="position:sticky;top:0;z-index:100;">
+    <a href="#" class="s2-nav-logo" onclick="backToAvatars(event)">
+      <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><polygon points="20,2 38,12 38,28 20,38 2,28 2,12" fill="#C9A84C"/><polygon points="20,8 32,15 32,25 20,32 8,25 8,15" fill="#0A0A0F"/></svg>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#fff;text-transform:uppercase;">ARCA <span style="color:#C9A84C">Robotics</span></span>
+    </a>
+    <div class="s2-nav-step"><div class="s2-step-dot"></div>Step 3 of 3</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8E8EA0;text-transform:uppercase;letter-spacing:0.1em;">
+      Welcome, <span id="s3CandName" style="color:#fff;"></span>
+    </div>
+  </nav>
+
+  <!-- INTERVIEW ROOM -->
+  <div id="interviewRoom" style="min-height:100vh;background:#0A0A0F;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:40px;">
+
+    <!-- HEADER -->
+    <div style="text-align:center;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;">
+        <span style="width:24px;height:1px;background:#C9A84C;display:inline-block;"></span>
+        Interview · Live
+        <span style="width:24px;height:1px;background:#C9A84C;display:inline-block;"></span>
+      </div>
+      <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:#fff;margin:0 0 8px;">
+        Your interview with <span id="s3AvatarName" style="color:#C9A84C;">—</span>
+      </h1>
+      <p id="s3AvatarRole" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8E8EA0;letter-spacing:0.15em;text-transform:uppercase;margin:0;"></p>
+    </div>
+
+    <!-- MAIN LAYOUT: Laptop + Widget -->
+    <div style="display:flex;gap:32px;align-items:flex-start;width:100%;max-width:1100px;flex-wrap:wrap;justify-content:center;">
+
+      <!-- LAPTOP -->
+      <div style="flex:0 0 auto;width:min(580px,100%);position:relative;">
+        <div style="position:relative;width:100%;background:#1a1a1a;border-radius:16px 16px 0 0;padding:10px 10px 0;box-shadow:0 0 60px rgba(201,168,76,0.08);">
+          <!-- screen bezel -->
+          <div style="background:#000;border-radius:10px;overflow:hidden;aspect-ratio:16/10;position:relative;">
+            <!-- camera dot -->
+            <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#333;z-index:2;"></div>
+            <!-- avatar video -->
+            <video id="s3Video" autoplay muted loop playsinline crossorigin="anonymous" preload="auto"
+              style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.4s;">
+            </video>
+            <!-- state indicator -->
+            <div id="s3StateLabel" style="position:absolute;bottom:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;background:rgba(0,0,0,0.6);padding:4px 10px;border-radius:20px;backdrop-filter:blur(4px);">
+              ● Listening
+            </div>
+          </div>
+        </div>
+        <!-- laptop base -->
+        <div style="width:100%;height:18px;background:linear-gradient(to bottom,#2a2a2a,#1a1a1a);border-radius:0 0 4px 4px;"></div>
+        <div style="width:40%;height:6px;background:#111;margin:0 auto;border-radius:0 0 6px 6px;"></div>
+
+        <!-- back button -->
+        <button onclick="backToAvatars(event)"
+          style="margin-top:20px;background:none;border:1px solid rgba(255,255,255,0.1);color:#8E8EA0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border-radius:6px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;"
+          onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C';"
+          onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#8E8EA0';">
+          ← Change interviewer
+        </button>
+      </div>
+
+      <!-- ELEVENLABS WIDGET + STATUS -->
+      <div style="flex:1;min-width:280px;max-width:420px;display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Status card -->
+        <div style="background:#0D0D1A;border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:20px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:12px;">Interview Status</div>
+          <div id="s3Status" style="font-family:'Space Grotesk',sans-serif;font-size:15px;color:#fff;">
+            Click <strong style="color:#C9A84C;">Start Interview</strong> below to begin your conversation.
+          </div>
+          <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8E8EA0;letter-spacing:0.1em;text-transform:uppercase;">🎙 Voice mode</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8E8EA0;letter-spacing:0.1em;text-transform:uppercase;">· ~15–20 min</span>
+          </div>
+        </div>
+
+        <!-- ElevenLabs widget container -->
+        <div id="s3WidgetWrap" style="background:#0D0D1A;border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:20px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;align-self:flex-start;width:100%;margin-bottom:4px;">AI Interviewer</div>
+          <!-- ElevenLabs widget will be injected here -->
+          <div id="s3ELWidget" style="width:100%;"></div>
+          <!-- Fallback start button (shown until EL loads) -->
+          <button id="s3StartBtn" onclick="startInterview()"
+            style="width:100%;padding:16px;background:#C9A84C;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#0A0A0F;font-weight:700;cursor:pointer;transition:all 0.2s;"
+            onmouseover="this.style.background='#E8C97A';"
+            onmouseout="this.style.background='#C9A84C';">
+            ▶ Start Interview
+          </button>
+        </div>
+
+        <!-- Tips -->
+        <div style="background:#0D0D1A;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:20px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#8E8EA0;text-transform:uppercase;margin-bottom:12px;">Quick tips</div>
+          <ul style="margin:0;padding:0 0 0 16px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#8E8EA0;line-height:1.8;">
+            <li>Speak naturally — no scripts needed</li>
+            <li>Your mic will be activated on Start</li>
+            <li>You can pause anytime</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── CONFIG ──
+  const SUPABASE_URL = 'https://czywpqncatwxdiynmvzo.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6eXdwcW5jYXR3eGRpeW5tdnpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjA1MzcsImV4cCI6MjA5MzEzNjUzN30.7DulYfQfZ_JQ-YOJ1O2f9Z9BIppIpvbPzLPVU2iRvsk';
+  const MEDIA_BASE  = 'https://builtwithai.pro/meethr/media/';
+
+  // ── VACANCY DATA ──
+  const VACANCIES = {
+    'robotics-sw-eng': {
+      title:'Robotics\nSoftware\nEngineer', titleShort:'Robotics Software Engineer',
+      tag:'Engineering · Munich', video:'Robotics Software Engineer.mp4',
+      desc:'You will be at the core of ARCA\'s technical engine — building the software that makes Osiris move, think, and adapt. This is not a maintenance role. You are building systems that have never existed before.',
+      reqs:['3+ years in robotics or embedded systems development','Strong Python and C++ skills, ROS experience preferred','Experience with real-time control systems or motion planning','Ability to work closely with hardware teams and iterate fast','Passion for humanoid robotics — this is not just a job'],
+      why:[{icon:'⚡',title:'Real Hardware',text:'You write code that runs on actual robots. Not simulations — real Osiris units in the lab every day.'},{icon:'🧠',title:'Hard Problems',text:'Motion planning, balance control, sensor fusion. Problems that still don\'t have perfect solutions.'},{icon:'🚀',title:'First Team',text:'Join as one of the founding engineers. Your architecture decisions will define ARCA for years.'}],
+      stats:{format:'Full-time · Hybrid',location:'Munich / Remote',salary:'$3,500–$5,500',team:'Engineering'}, isCeoSpecial:false
+    },
+    'computer-vision': {
+      title:'Computer\nVision\nSpecialist', titleShort:'Computer Vision Specialist',
+      tag:'AI/ML · Munich', video:'Computer Vision Specialist.mp4',
+      desc:'Osiris sees the world through your models. You will build the perception systems that allow our robot to understand environments, recognize objects, and navigate complex real-world scenarios with confidence.',
+      reqs:['4+ years in computer vision or ML engineering','Deep experience with PyTorch or TensorFlow','Hands-on with object detection, segmentation, depth estimation','Experience deploying models on edge devices is a big plus','Strong math foundation — linear algebra, probability, optimization'],
+      why:[{icon:'👁',title:'Robot Vision',text:'Your models run on Osiris. You see your work in the real world every time the robot navigates a room.'},{icon:'📊',title:'Unique Data',text:'Access to proprietary robotics datasets you won\'t find anywhere else. Rare research opportunity.'},{icon:'🏆',title:'Top Salary',text:'Our highest technical comp band. We know great CV engineers are rare — we pay accordingly.'}],
+      stats:{format:'Full-time · On-site',location:'Munich',salary:'$4,000–$6,000',team:'AI/ML'}, isCeoSpecial:false
+    },
+    'mechanical-design': {
+      title:'Mechanical\nDesign\nEngineer', titleShort:'Mechanical Design Engineer',
+      tag:'Hardware · Munich', video:'Mechanical Design Engineer.mp4',
+      desc:'You design the body of Osiris. Every joint, actuator, and structural component goes through you. This is precision engineering at the frontier — where human biomechanics meets advanced materials.',
+      reqs:['3+ years in mechanical or robotics hardware design','Expert-level CAD (SolidWorks, Fusion 360, or equivalent)','Experience with actuator selection, tolerance analysis, DFM','Comfortable working with prototyping and 3D printing','Understanding of dynamic loads and structural simulation'],
+      why:[{icon:'🦾',title:'Build the Body',text:'Literally design a humanoid robot from scratch. Not many engineers in the world get to say that.'},{icon:'🔩',title:'Full Cycle',text:'From sketch to prototype to production. You own the mechanical design end-to-end.'},{icon:'🌍',title:'Impact',text:'The robots you design will work alongside humans in homes, factories, and hospitals worldwide.'}],
+      stats:{format:'Full-time · On-site',location:'Munich',salary:'$3,000–$5,000',team:'Hardware'}, isCeoSpecial:false
+    },
+    'ai-training-lead': {
+      title:'AI Training\nData Lead', titleShort:'AI Training Data Lead',
+      tag:'AI/ML · Remote', video:'Ai Training Data Lead.mp4',
+      desc:'The intelligence of Osiris starts with the data you curate. You will lead the strategy and execution of data collection, annotation, and quality control — directly shaping how our robot learns.',
+      reqs:['3+ years in ML data ops, annotation management, or AI data strategy','Experience building annotation pipelines at scale','Strong understanding of model training workflows and data quality impact','Ability to manage and coordinate annotation teams','Systematic thinker who obsesses over data consistency and quality'],
+      why:[{icon:'🧬',title:'Shape the Mind',text:'The data you design directly determines how Osiris thinks. Few roles have this level of AI influence.'},{icon:'🌐',title:'Remote First',text:'Fully remote with async culture. Work from anywhere, focus on output not presence.'},{icon:'📈',title:'Growing Field',text:'AI training data is one of the fastest growing disciplines in tech. Build expertise at the frontier.'}],
+      stats:{format:'Full-time · Remote',location:'Worldwide',salary:'$3,500–$5,500',team:'AI/ML'}, isCeoSpecial:false
+    },
+    'operations-manager': {
+      title:'Operations &\nDeployment\nManager', titleShort:'Operations & Deployment Manager',
+      tag:'Operations · Munich', video:'Operations & Deployment Manager.mp4',
+      desc:'When Osiris ships, you make sure everything works. You own the operational infrastructure — from lab processes to client deployments. You are the bridge between engineering and the real world.',
+      reqs:['4+ years in operations, logistics, or deployment management','Experience coordinating technical teams and external partners','Strong project management skills, comfortable with ambiguity','Ability to build processes from scratch in a startup environment','Bonus: experience with hardware deployments or field operations'],
+      why:[{icon:'⚙️',title:'Own the Process',text:'You build operational systems that don\'t exist yet. Full ownership from day one.'},{icon:'🤝',title:'Cross-Functional',text:'Work with every team — engineering, hardware, sales. The role that sees it all.'},{icon:'📦',title:'Ship Robots',text:'Every successful Osiris deployment is a direct result of your work. Tangible impact.'}],
+      stats:{format:'Full-time · Hybrid',location:'Munich / Remote',salary:'$3,000–$4,500',team:'Operations'}, isCeoSpecial:false
+    },
+    'marketing-content-lead': {
+      title:'Marketing &\nContent\nLead', titleShort:'Marketing & Content Lead',
+      tag:'Marketing · Remote', video:'Marketing & Content Lead.mp4',
+      desc:'ARCA is building something the world has never seen. Your job is to make the world pay attention. You will own the narrative — from brand voice to viral content to investor communications.',
+      reqs:['3+ years in content, brand, or growth marketing','Strong writing and visual storytelling skills','Experience building an audience from scratch (social, newsletter, video)','Self-directed — can run a full campaign solo without a big team','Passion for technology and ability to translate complex ideas simply'],
+      why:[{icon:'✨',title:'Blank Canvas',text:'ARCA\'s brand is still being written. You define the voice, the aesthetic, the story — from scratch.'},{icon:'🎥',title:'Incredible Content',text:'You have a humanoid robot to film. Your content will be unlike anything else in the market.'},{icon:'👤',title:'Talk to the CEO',text:'Богдан personally interviews Marketing Lead candidates. This is a strategic hire.'}],
+      stats:{format:'Full-time · Remote',location:'Worldwide',salary:'$2,500–$4,000',team:'Marketing'}, isCeoSpecial:true
+    }
+  };
+
+  const TEAM = [
+    {name:'Вікторія', role:'Head of Talent', bio:'Leads the hiring process at ARCA. Has placed engineers at top European robotics and AI labs.'},
+    {name:'Олексій Хвиля', role:'Talent Curator', bio:'Your point of contact after the interview. Олексій guides candidates through every step of the process.'},
+    {name:'Джулія', role:'People & Culture', bio:'Ensures every candidate has a world-class experience. Warm, direct, and genuinely excited about the people joining ARCA.'}
+  ];
+
+  // ── STATE ──
+  const params = new URLSearchParams(window.location.search);
+  const urlToken = params.get('token');
+  let candidateData = null;
+  let session = {};
+
+  // ── INIT ──
+  async function init() {
+    if (urlToken) await loadCandidateByToken(urlToken);
+    const emailParam = params.get('email');
+    if (emailParam) {
+      document.getElementById('email').value = emailParam;
+      document.getElementById('loginEmail').value = emailParam;
+    }
+  }
+
+  async function loadCandidateByToken(token) {
+    try {
+      const res = await sbFetch(`/rest/v1/candidates?token=eq.${token}&select=*,vacancies(title)&limit=1`);
+      const data = await res.json();
+      if (data && data.length > 0) {
+        candidateData = data[0];
+        if (candidateData.first_name) document.getElementById('firstName').value = candidateData.first_name;
+        if (candidateData.last_name)  document.getElementById('lastName').value  = candidateData.last_name;
+        if (candidateData.email)      document.getElementById('email').value      = candidateData.email;
+        const v = candidateData.vacancies;
+        document.getElementById('vacancyBadge').textContent = v ? v.title : 'Your position';
+      }
+    } catch(e) { console.warn('Token load failed:', e); }
+  }
+
+  // ── SUPABASE ──
+  function sbFetch(path, options = {}) {
+    return fetch(SUPABASE_URL + path, {
+      ...options,
+      headers: { 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY, 'Content-Type':'application/json', 'Prefer':'return=representation', ...(options.headers||{}) }
+    });
+  }
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // ── PASSWORD STRENGTH ──
+  document.getElementById('password').addEventListener('input', function() {
+    const v = this.value;
+    const bars = ['bar1','bar2','bar3'].map(id=>document.getElementById(id));
+    bars.forEach(b=>b.className='pw-bar');
+    if (!v.length) return;
+    if (v.length < 6) bars[0].classList.add('weak');
+    else if (v.length < 10 || !/[0-9!@#$%^&*]/.test(v)) { bars[0].classList.add('medium'); bars[1].classList.add('medium'); }
+    else bars.forEach(b=>b.classList.add('strong'));
+  });
+
+  function togglePw(inputId, btnId) {
+    const inp = document.getElementById(inputId);
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+    document.getElementById(btnId).style.color = inp.type === 'text' ? 'var(--gold)' : 'var(--gray)';
+  }
+
+  function setErr(id, show) { document.getElementById(id).classList.toggle('show', show); }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function validateReg() {
+    let ok = true;
+    const fn = document.getElementById('firstName').value.trim();
+    const ln = document.getElementById('lastName').value.trim();
+    const em = document.getElementById('email').value.trim();
+    const pw = document.getElementById('password').value;
+    const co = document.getElementById('confirm').value;
+    setErr('firstNameErr', !fn); if(!fn) ok=false;
+    setErr('lastNameErr', !ln);  if(!ln) ok=false;
+    setErr('emailErr', !isEmail(em)); if(!isEmail(em)) ok=false;
+    setErr('passwordErr', pw.length<8); if(pw.length<8) ok=false;
+    setErr('confirmErr', pw!==co); if(pw!==co) ok=false;
+    return ok;
+  }
+
+  // ── REGISTER ──
+  async function handleSubmit() {
+    if (!validateReg()) return;
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    const email = document.getElementById('email').value.trim();
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName  = document.getElementById('lastName').value.trim();
+    const hash = await sha256(document.getElementById('password').value);
+    try {
+      const checkRes = await sbFetch(`/rest/v1/candidates?email=eq.${encodeURIComponent(email)}&select=id,status,password_hash,vacancy_id&limit=1`);
+      const existing = await checkRes.json();
+      if (existing && existing.length > 0) {
+        if (existing[0].password_hash) {
+          showToast('This email is already registered. Please sign in.', false);
+          btn.classList.remove('loading');
+          setTimeout(() => showLogin(), 1800);
+          return;
+        }
+        candidateData = candidateData || existing[0];
+      }
+      let result;
+      if (candidateData) {
+        const r = await sbFetch(`/rest/v1/candidates?id=eq.${candidateData.id}`, { method:'PATCH', body:JSON.stringify({password_hash:hash, first_name:firstName, last_name:lastName, status:'registered'}) });
+        result = await r.json();
+      } else {
+        const r = await sbFetch('/rest/v1/candidates', { method:'POST', body:JSON.stringify({email, first_name:firstName, last_name:lastName, password_hash:hash, status:'registered'}) });
+        result = await r.json();
+      }
+      const final = candidateData || (Array.isArray(result) ? result[0] : result);
+      session = { email, firstName, lastName, id: final?.id || candidateData?.id, vacancy_id: candidateData?.vacancy_id || final?.vacancy_id || null };
+      sessionStorage.setItem('arca_candidate', JSON.stringify(session));
+      showSuccess(firstName);
+    } catch(e) { showToast('Something went wrong. Please try again.', false); console.error(e); }
+    finally { btn.classList.remove('loading'); }
+  }
+
+  // ── LOGIN ──
+  async function handleLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPassword').value;
+    if (!isEmail(email)) { setErr('loginEmailErr', true); return; }
+    if (!pw) { setErr('loginPasswordErr', true); return; }
+    const btn = document.getElementById('loginBtn');
+    btn.classList.add('loading');
+    try {
+      const hash = await sha256(pw);
+      const res  = await sbFetch(`/rest/v1/candidates?email=eq.${encodeURIComponent(email)}&select=*&limit=1`);
+      const data = await res.json();
+      if (!data || !data.length) { showToast('Email not found. Please register first.', false); setTimeout(()=>showRegister(),1800); return; }
+      const c = data[0];
+      if (c.password_hash !== hash) { setErr('loginPasswordErr', true); showToast('Incorrect password.', false); return; }
+      await sbFetch(`/rest/v1/candidates?id=eq.${c.id}`, { method:'PATCH', body:JSON.stringify({last_login:new Date().toISOString()}) });
+      session = { email:c.email, firstName:c.first_name, lastName:c.last_name, id:c.id, vacancy_id:c.vacancy_id };
+      sessionStorage.setItem('arca_candidate', JSON.stringify(session));
+      showSuccess(c.first_name || email.split('@')[0]);
+    } catch(e) { showToast('Something went wrong.', false); }
+    finally { btn.classList.remove('loading'); }
+  }
+
+  // ── UI ──
+  function showSuccess(name) {
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('successName').textContent = name;
+    document.getElementById('successScreen').style.display = 'block';
+    showToast('Account created successfully!', true);
+  }
+  function showLogin() { document.getElementById('regForm').style.display='none'; document.getElementById('loginForm').style.display='block'; }
+  function showRegister() { document.getElementById('loginForm').style.display='none'; document.getElementById('regForm').style.display='block'; }
+
+  // Osiris background swap: static photo → looping video on button click
+  let osirisActivated = false;
+  function activateOsirisVideo() {
+    if (osirisActivated) return;
+    osirisActivated = true;
+    const img = document.getElementById('osiris-bg-img');
+    const vid = document.getElementById('osiris-bg-video');
+    img.style.opacity = '0';
+    vid.style.opacity = '1';
+  }
+  document.getElementById('submitBtn').addEventListener('click', activateOsirisVideo);
+  document.getElementById('loginBtn').addEventListener('click', activateOsirisVideo);
+
+  // ── SCREEN ROUTING ──
+  function goToScreen2() {
+    session = JSON.parse(sessionStorage.getItem('arca_candidate') || '{}');
+    transitionTo(() => {
+      document.getElementById('screen1').classList.remove('active');
+      document.getElementById('screen2').classList.add('active');
+      window.scrollTo(0, 0);
+      initScreen2();
+    });
+  }
+
+  function goToScreen3() {
+    if (!currentAvatarId) {
+      // No avatar selected — scroll to avatar chooser and highlight it
+      const section = document.getElementById('s2avatars');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        // Flash the headline to draw attention
+        const headline = section.querySelector('.avatars-headline');
+        if (headline) {
+          headline.style.color = 'var(--gold)';
+          setTimeout(() => { headline.style.color = ''; }, 1200);
+        }
+      }
+      showToast('Спочатку оберіть інтерв\'юера ↑', false);
+      return;
+    }
+    enterZoom(currentAvatarId);
+  }
+
+  function transitionTo(callback) {
+    const t = document.getElementById('transition');
+    t.classList.add('active');
+    setTimeout(() => { callback(); t.classList.remove('active'); }, 400);
+  }
+
+  // ── SCREEN 2 INIT ──
+  function initScreen2() {
+    const vacancyId = session.vacancy_id || 'marketing-content-lead';
+    const firstName = session.firstName || 'Candidate';
+    const v = VACANCIES[vacancyId] || VACANCIES['marketing-content-lead'];
+
+    document.getElementById('navName').textContent = firstName;
+    document.getElementById('heroName').textContent = firstName;
+    document.getElementById('heroTag').textContent = v.tag;
+
+    // Title
+    const lines = v.title.split('\n');
+    document.getElementById('heroTitle').innerHTML = lines.map((l,i) => i===1 ? `<span class="gold">${l}</span>` : l).join('<br>');
+
+    // Meta
+    document.getElementById('heroMeta').innerHTML = [
+      {icon:'📍', text:v.stats.location},
+      {icon:'⏱', text:v.stats.format},
+      {icon:'💰', text:v.stats.salary}
+    ].map((m,i) => `${i>0?'<div class="s2-meta-sep"></div>':''}<div class="s2-meta-item"><span>${m.icon}</span><span>${m.text}</span></div>`).join('');
+
+    // Video
+    const src = MEDIA_BASE + encodeURIComponent(v.video);
+    document.getElementById('heroVideoSrc').src = src;
+    document.getElementById('heroVideo').load();
+
+    // Role
+    document.getElementById('roleTitle').textContent = v.titleShort;
+    document.getElementById('roleDesc').textContent = v.desc;
+    document.getElementById('roleStats').innerHTML = `
+      <div class="stat-item"><div class="stat-label">Format</div><div class="stat-value">${v.stats.format}</div></div>
+      <div class="stat-item"><div class="stat-label">Location</div><div class="stat-value">${v.stats.location}</div></div>
+      <div class="stat-item"><div class="stat-label">Compensation</div><div class="stat-value gold">${v.stats.salary}</div></div>
+      <div class="stat-item"><div class="stat-label">Department</div><div class="stat-value">${v.stats.team}</div></div>
+    `;
+
+    // Reqs
+    document.getElementById('reqList').innerHTML = v.reqs.map((r,i) => `<li class="req-item"><span class="req-num">0${i+1}</span><span>${r}</span></li>`).join('');
+
+    // Why slideshow — vars & functions are global (defined below)
+
+
+
+
+
+
+
+
+
+
+
+    // Keyboard nav
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('screen2').classList.contains('active')) return;
+      if (e.key === 'ArrowRight') whyGoTo(whyCurrent + 1);
+      if (e.key === 'ArrowLeft')  whyGoTo(whyCurrent - 1);
+    });
+
+    // Why slideshow
+    whyCurrent = 0; whyPlaying = true;
+    buildWhySlides(v.why);
+
+    // Scroll animations & counters
+    setTimeout(initScrollAnimations, 100);
+
+    // Life at ARCA
+    setTimeout(initLifeSection, 150);
+
+    // Avatars
+    buildAvatars(vacancyId);
+
+    // CEO special
+
+
+    // CTA
+    document.getElementById('ctaSub').textContent = v.isCeoSpecial
+      ? 'Your AI interviewer is ready — and Богдан may personally join for Marketing Lead candidates.'
+      : 'Your AI interviewer is ready. The conversation takes about 15–20 minutes.';
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#s2"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+      });
+    });
+  }
+
+  // ── TOAST ──
+  function showToast(msg, success=false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (success ? ' success-toast' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── ENTER KEY ──
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    if (document.getElementById('loginForm').style.display !== 'none') handleLogin();
+    else if (document.getElementById('regForm').style.display !== 'none') handleSubmit();
+  });
+
+
+  // ── WHY SLIDESHOW GLOBALS ──
+  function buildWhySlides(why) {
+    const videos = [
+      MEDIA_BASE + 'Zoom-With-Ceo.mp4',       // Talk to the CEO → slide index matches v.why order
+      MEDIA_BASE + 'Reef-Basketball.mp4',      // Incredible Content
+      MEDIA_BASE + 'Mirabella%20Conference.mp4' // Blank Canvas
+    ];
+    // Map videos to why cards by title keyword
+    function videoForWhy(w) {
+      const t = w.title.toLowerCase();
+      // Marketing & Content Lead
+      if (t.includes('ceo') || t.includes('talk')) return MEDIA_BASE + 'Zoom-With-Ceo.mp4';
+      if (t.includes('content') || t.includes('incredible')) return MEDIA_BASE + 'Reef-Basketball.mp4';
+      if (t.includes('canvas') || t.includes('blank')) return MEDIA_BASE + 'Mirabella%20Conference.mp4';
+      // Robotics Software Engineer
+      if (t.includes('hardware') || t.includes('real')) return MEDIA_BASE + 'Real-Hardware.mp4';
+      if (t.includes('hard') || t.includes('problems')) return MEDIA_BASE + 'HARD-PROBLEMS.mp4';
+      if (t.includes('first') || t.includes('team')) return MEDIA_BASE + 'FIRST-TEAM.mp4';
+      // Mechanical Design Engineer
+      if (t.includes('build') || t.includes('body')) return MEDIA_BASE + 'Build-The-Body.mp4';
+      if (t.includes('cycle') || t.includes('full')) return MEDIA_BASE + 'Full-Cycle.mp4';
+      if (t.includes('impact')) return MEDIA_BASE + 'Impact.mp4';
+      // AI Training Data Lead
+      if (t.includes('shape') || t.includes('mind')) return MEDIA_BASE + 'Shape-The-Mind.mp4';
+      if (t.includes('remote')) return MEDIA_BASE + 'Remote-First.mp4';
+      if (t.includes('growing') || t.includes('field')) return MEDIA_BASE + 'Growing-Field.mp4';
+      // Computer Vision Specialist
+      if (t.includes('robot') || t.includes('vision')) return MEDIA_BASE + 'Robot-Vision.mp4';
+      if (t.includes('unique') || t.includes('data')) return MEDIA_BASE + 'Unique-Data.mp4';
+      if (t.includes('salary') || t.includes('top')) return MEDIA_BASE + 'Top-Salary.mp4';
+      // Operations & Deployment Manager
+      if (t.includes('own') || t.includes('process')) return MEDIA_BASE + 'Own-The-Process.mp4';
+      if (t.includes('cross') || t.includes('functional')) return MEDIA_BASE + 'Cross-Functional.mp4';
+      if (t.includes('ship')) return MEDIA_BASE + 'Ship-Robots.mp4';
+      return MEDIA_BASE + 'Mirabella%20Conference.mp4';
+    }
+
+    const slidesEl = document.getElementById('whySlides');
+    const dotsEl   = document.getElementById('whyDots');
+    slidesEl.innerHTML = '';
+    dotsEl.innerHTML   = '';
+
+    why.forEach((w, i) => {
+      const vid = videoForWhy(w);
+      const slide = document.createElement('div');
+      slide.className = 'why-slide' + (i === 0 ? ' active' : '');
+      slide.id = `whySlide${i}`;
+      slide.innerHTML = `
+        <div class="why-slide-text">
+          <div class="why-slide-num">0${i+1} / 0${why.length}</div>
+          <div class="why-slide-title">${w.title}</div>
+          <div class="why-slide-desc">${w.text}</div>
+        </div>
+        <div class="why-device-wrap">
+          <div class="why-device">
+            <div class="laptop-outer">
+              <div class="laptop-screen-bezel">
+                <div class="laptop-cam"></div>
+                <video class="why-video" id="whyVid${i}" src="${vid}" autoplay muted loop playsinline preload="auto"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+        <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d0d1a,#111130);flex-direction:column;gap:16px;">
+          <div style="font-size:48px;">${w.icon}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#C9A84C;letter-spacing:0.1em;">${w.title}</div>
+        </div>
+                <div class="laptop-reflection"></div>
+              </div>
+            </div>
+            <div class="laptop-base"><div class="laptop-trackpad"></div></div>
+          </div>
+          <div class="device-glow"></div>
+        </div>
+      `;
+      slidesEl.appendChild(slide);
+
+      // Dot
+      const dot = document.createElement('button');
+      dot.className = 'why-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Slide ${i+1}`);
+      dot.innerHTML = i === 0 ? '<div class="why-dot-progress" id="whyDotProg0"></div>' : '';
+      dot.onclick = () => whyGoTo(i);
+      dotsEl.appendChild(dot);
+    });
+
+    whyStartProgress();
+  }
+
+  function whyGoTo(idx) {
+    const slides = document.querySelectorAll('.why-slide');
+    const dots   = document.querySelectorAll('.why-dot');
+    if (!slides.length) return;
+
+    // Pause old video
+    const oldVid = document.getElementById(`whyVid${whyCurrent}`);
+    if (oldVid) oldVid.pause();
+
+    slides[whyCurrent].classList.remove('active');
+    dots[whyCurrent].classList.remove('active');
+    dots[whyCurrent].innerHTML = '';
+
+    whyCurrent = (idx + slides.length) % slides.length;
+
+    slides[whyCurrent].classList.add('active');
+    dots[whyCurrent].classList.add('active');
+    dots[whyCurrent].innerHTML = `<div class="why-dot-progress" id="whyDotProg${whyCurrent}"></div>`;
+
+    // Play new video
+    const newVid = document.getElementById(`whyVid${whyCurrent}`);
+    if (newVid) { newVid.currentTime = 0; if (whyPlaying) newVid.play(); }
+
+    whyCancelProgress();
+    if (whyPlaying) whyStartProgress();
+  }
+
+  function whyStartProgress() {
+    whyCancelProgress();
+    whyProgressStart = performance.now();
+    function tick(now) {
+      const elapsed = now - whyProgressStart;
+      const pct = Math.min((elapsed / WHY_SLIDE_DURATION) * 100, 100);
+      const bar = document.getElementById(`whyDotProg${whyCurrent}`);
+      if (bar) bar.style.width = pct + '%';
+      if (pct < 100) {
+        whyProgressRaf = requestAnimationFrame(tick);
+      } else {
+        whyGoTo(whyCurrent + 1);
+      }
+    }
+    whyProgressRaf = requestAnimationFrame(tick);
+  }
+
+  function whyCancelProgress() {
+    if (whyProgressRaf) cancelAnimationFrame(whyProgressRaf);
+    whyProgressRaf = null;
+    clearTimeout(whyTimer);
+  }
+
+  function whyTogglePlay() {
+    whyPlaying = !whyPlaying;
+    const icon = document.getElementById('ppIcon');
+    const vid  = document.getElementById(`whyVid${whyCurrent}`);
+    if (whyPlaying) {
+      icon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+      if (vid) vid.play();
+      whyStartProgress();
+    } else {
+      icon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+      if (vid) vid.pause();
+      whyCancelProgress();
+    }
+  }
+  const WHY_SLIDE_DURATION = 7000;
+  let whyCurrent = 0;
+  let whyPlaying = true;
+  let whyTimer = null;
+  let whyProgressStart = null;
+  let whyProgressRaf = null;
+
+  // ── PREP MODAL DATA ──
+  const PREP_MODALS = {
+    duration: {
+      eyebrow: 'Format & Time',
+      title: 'How long does the interview take?',
+      body: `
+        <p>The interview typically takes <strong>15 to 20 minutes</strong>. It's structured as a natural conversation — not a test.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>What to expect:</strong></p>
+        <ul>
+          <li>A brief introduction from your AI interviewer</li>
+          <li>6 questions tailored to the Marketing Lead role</li>
+          <li>Space to ask questions at the end</li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>You can pause at any moment. The interview does not have a hard time limit — take the time you need to answer well.</p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">15–20 min</span>
+          <span class="prep-modal-tag">No Hard Limit</span>
+          <span class="prep-modal-tag">Conversational</span>
+        </div>`
+    },
+    evaluation: {
+      eyebrow: 'Evaluation Criteria',
+      title: 'What exactly will be evaluated?',
+      body: `
+        <p>We are not looking for perfect answers. We are looking for <strong>how you think</strong>.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>For the Marketing Lead role, we focus on:</strong></p>
+        <ul>
+          <li><strong>Storytelling</strong> — can you make complex ideas simple and compelling?</li>
+          <li><strong>Strategic thinking</strong> — how do you approach building an audience from zero?</li>
+          <li><strong>Aesthetic sensibility</strong> — do you have a clear point of view on brand and tone?</li>
+          <li><strong>Self-direction</strong> — can you run a campaign solo without being managed?</li>
+          <li><strong>Passion for tech</strong> — do you genuinely care about what ARCA is building?</li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>After the interview, Богдан personally reviews the transcript for Marketing Lead candidates. <strong>Authenticity beats polish every time.</strong></p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">No Right Answers</span>
+          <span class="prep-modal-tag">Thinking Matters</span>
+          <span class="prep-modal-tag">CEO Review</span>
+        </div>`
+    },
+    prepare: {
+      eyebrow: 'Preparation Tips · Marketing Lead',
+      title: 'What should I prepare before the interview?',
+      body: `
+        <p>This is a <strong>strategic hire</strong>. Богдан will personally interview final candidates. Come prepared to talk about your work — not just your resume.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>Recommended preparation:</strong></p>
+        <ul>
+          <li>Think of <strong>one campaign or piece of content</strong> you're genuinely proud of — be ready to walk through it</li>
+          <li>Have a <strong>clear point of view on ARCA's brand</strong> — what's missing, what you'd do first</li>
+          <li>Know your <strong>distribution instincts</strong> — YouTube vs TikTok vs LinkedIn: where would you start and why?</li>
+          <li>Be ready to answer: <strong>"Describe ARCA to someone who's never heard of it"</strong></li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>Browse <strong>arcairobotics.com</strong> before the interview. The more you understand the product, the stronger your answers.</p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">CEO Review</span>
+          <span class="prep-modal-tag">Portfolio Ready</span>
+          <span class="prep-modal-tag">Know the Brand</span>
+        </div>`
+    },
+    tech: {
+      eyebrow: 'Technical Setup',
+      title: 'Technical requirements for the interview',
+      body: `
+        <p>The interview runs entirely in your browser — <strong>no downloads, no apps</strong>. Just make sure your setup is ready before you begin.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>What you need:</strong></p>
+        <ul>
+          <li>🎙 <strong>Microphone</strong> — built-in or external, just make sure it's not muted</li>
+          <li>🌐 <strong>Browser</strong> — Chrome or Safari recommended. Firefox works too.</li>
+          <li>📶 <strong>Stable connection</strong> — Wi-Fi preferred. Mobile data works but may introduce latency.</li>
+          <li>🔇 <strong>Quiet environment</strong> — background noise can affect voice recognition quality</li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>When you click "Start Interview", your browser will ask for microphone permission. <strong>Allow it</strong> — without it, the interview cannot begin.</p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">No Download</span>
+          <span class="prep-modal-tag">Chrome / Safari</span>
+          <span class="prep-modal-tag">Mic Required</span>
+        </div>`
+    },
+    restart: {
+      eyebrow: 'Restart Policy',
+      title: 'Can I restart the interview?',
+      body: `
+        <p><strong>Yes — once.</strong> If something goes wrong technically or you feel you started poorly, you can restart from the beginning.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>How it works:</strong></p>
+        <ul>
+          <li>Click the restart button during the interview at any moment</li>
+          <li>Your previous session will be discarded</li>
+          <li>A fresh conversation starts with the same interviewer</li>
+          <li>Only one restart is allowed per application</li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>Our advice: <strong>don't restart unless something truly went wrong</strong>. Interviewers understand nervousness — it's human. An authentic restart is always worse than an authentic first attempt.</p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">1 Restart Allowed</span>
+          <span class="prep-modal-tag">Be Authentic</span>
+        </div>`
+    },
+    after: {
+      eyebrow: 'Next Steps',
+      title: 'What happens after the interview?',
+      body: `
+        <p>Your interview is recorded and automatically analyzed. <strong>Олексій Хвиля</strong> — ARCA's Talent Curator — personally reviews every conversation for the Marketing Lead role.</p>
+        <div class="prep-modal-divider"></div>
+        <p><strong>What to expect:</strong></p>
+        <ul>
+          <li>📋 <strong>AI analysis</strong> — your transcript is scored on the criteria above</li>
+          <li>👤 <strong>Human review</strong> — Олексій reads the highlights, not just the score</li>
+          <li>📬 <strong>Telegram message within 24 hours</strong> — Олексій will reach out personally</li>
+          <li>🎯 <strong>CEO call for finalists</strong> — Богдан personally speaks with top Marketing candidates</li>
+        </ul>
+        <div class="prep-modal-divider"></div>
+        <p>After the interview you'll see a button to connect with Олексій directly on Telegram. <strong>We respond fast.</strong></p>
+        <div style="margin-top:16px">
+          <span class="prep-modal-tag">24h Response</span>
+          <span class="prep-modal-tag">CEO Finalists</span>
+          <span class="prep-modal-tag">Telegram</span>
+        </div>`
+    }
+  };
+
+  function openPrepModal(key) {
+    const d = PREP_MODALS[key];
+    if (!d) return;
+    document.getElementById('pmEyebrow').textContent = d.eyebrow;
+    document.getElementById('pmTitle').textContent = d.title;
+    document.getElementById('pmBody').innerHTML = d.body;
+    document.getElementById('prepModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePrepModal(e) {
+    if (e.target === document.getElementById('prepModalOverlay')) closePrepModalDirect();
+  }
+  function closePrepModalDirect() {
+    document.getElementById('prepModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // ESC handled in combined listener below
+
+  // ── SCROLL ANIMATIONS & COUNTERS ──
+  function initScrollAnimations() {
+    // Line-reveal headlines
+    const lineInners = document.querySelectorAll('.prep-headline .line-inner');
+    // Stats
+    const prepStats = document.getElementById('prepStats');
+    // Cards
+    const prepCards = document.querySelectorAll('.prep-card');
+    // Subline
+    const prepSubline = document.querySelector('.prep-subline');
+    // CTA row
+    const prepCta = document.getElementById('prepCta');
+    // reveal-left / reveal-right / reveal-up generics
+    const revealEls = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up');
+
+    let countersStarted = false;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+
+        // Headline lines
+        if (el.classList.contains('prep-headline')) {
+          el.querySelectorAll('.line-inner').forEach((li, i) => {
+            setTimeout(() => li.classList.add('revealed'), i * 120);
+          });
+          if (prepSubline) setTimeout(() => prepSubline.classList.add('revealed'), 400);
+        }
+        // Stats
+        if (el === prepStats) {
+          el.classList.add('revealed');
+          if (!countersStarted) { countersStarted = true; runCounters(); }
+        }
+        // Cards with stagger
+        if (el.classList.contains('prep-card')) {
+          const idx = Array.from(prepCards).indexOf(el);
+          setTimeout(() => el.classList.add('revealed'), idx * 80);
+        }
+        // CTA
+        if (el === prepCta) el.classList.add('revealed');
+        // Generic reveals
+        if (el.classList.contains('reveal-left') || el.classList.contains('reveal-right') || el.classList.contains('reveal-up')) {
+          el.classList.add('revealed');
+        }
+
+        io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+
+    // Observe
+    const headline = document.querySelector('.prep-headline');
+    if (headline) io.observe(headline);
+    if (prepStats) io.observe(prepStats);
+    prepCards.forEach(c => io.observe(c));
+    if (prepCta) io.observe(prepCta);
+    revealEls.forEach(el => io.observe(el));
+  }
+
+  function runCounters() {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      const duration = 1600;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutExpo
+        const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        counter.textContent = Math.round(ease * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // ── LIFE AT ARCA ──
+  let lifeCurrent = 0;
+  let lifeRaf = null;
+  let lifeProgressStart = null;
+  const LIFE_DURATION = 6000;
+
+  function lifeGoTo(idx) {
+    const total = 3;
+    // Deactivate current
+    document.getElementById(`lifeSlide${lifeCurrent}`).classList.remove('active');
+    document.getElementById(`lifeTab${lifeCurrent}`).classList.remove('active');
+    document.getElementById(`lifeBar${lifeCurrent}`).style.transition = 'none';
+    document.getElementById(`lifeBar${lifeCurrent}`).style.width = '0%';
+
+    lifeCurrent = (idx + total) % total;
+
+    document.getElementById(`lifeSlide${lifeCurrent}`).classList.add('active');
+    document.getElementById(`lifeTab${lifeCurrent}`).classList.add('active');
+
+    lifeStartProgress();
+  }
+
+  function lifeStartProgress() {
+    if (lifeRaf) cancelAnimationFrame(lifeRaf);
+    const bar = document.getElementById(`lifeBar${lifeCurrent}`);
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    // Force reflow
+    void bar.offsetWidth;
+    bar.style.transition = `width ${LIFE_DURATION}ms linear`;
+    bar.style.width = '100%';
+
+    lifeProgressStart = performance.now();
+    function tick(now) {
+      const elapsed = now - lifeProgressStart;
+      if (elapsed >= LIFE_DURATION) {
+        lifeGoTo(lifeCurrent + 1);
+        return;
+      }
+      lifeRaf = requestAnimationFrame(tick);
+    }
+    lifeRaf = requestAnimationFrame(tick);
+  }
+
+  function initLifeSection() {
+    // Start autoplay
+    lifeStartProgress();
+
+    // Values reveal
+    const values = document.querySelectorAll('.life-value');
+    const valuesContainer = document.getElementById('lifeValues');
+    if (valuesContainer) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            values.forEach(v => v.classList.add('revealed'));
+          }
+        });
+      }, { threshold: 0.2 }).observe(valuesContainer);
+    }
+  }
+
+  // ── AVATAR DATA ──
+  const BASE = 'https://builtwithai.pro/meethr/media/';
+  const AVATARS = [
+    {
+      id: 'viktoria',
+      name: 'Вікторія',
+      role: 'Head of Talent',
+      style: 'Structured & Sharp',
+      isCeo: false,
+      agentId: 'agent_6801kqnd9167e64bth86hjafp16p',
+      photo: BASE + '%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%D1%96%D1%8F.png',
+      tag: 'Interviewer · 01',
+      desc: 'Вікторія веде наймання у ARCA з першого дня. Вона розмістила інженерів у провідних робототехнічних і AI-лабораторіях Європи — і одразу бачить, коли кандидат «той самий». Очікуй точних питань, прямих відповідей і нульової толерантності до buzzwords.',
+      traits: ['Strategic', 'Direct', 'High-bar']
+    },
+    {
+      id: 'oleksii',
+      name: 'Олексій Хвиля',
+      role: 'Talent Curator',
+      style: 'Friendly & Warm',
+      isCeo: false,
+      agentId: 'agent_7201kqnc92affjktwcxs1127q4r4',
+      photo: BASE + '%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9.png',
+      tag: 'Interviewer · 02',
+      desc: 'Олексій — твоя перша точка контакту в ARCA і голос, якому ти довіряєш. Він проводить кандидатів через увесь процес із справжньою теплотою. Розмова з ним більше схожа на каву з другом, ніж на формальне інтерв\'ю — але не дай себе обдурити: він чудово відчуває людей.',
+      traits: ['Empathetic', 'Conversational', 'Intuitive']
+    },
+    {
+      id: 'julia',
+      name: 'Джулія',
+      role: 'People & Culture',
+      style: 'Human & Curious',
+      isCeo: false,
+      agentId: 'agent_3301kqndygxve3yv9snv335tacgc',
+      photo: BASE + '%D0%94%D0%B6%D1%83%D0%BB%D1%96%D1%8F.png',
+      tag: 'Interviewer · 03',
+      desc: 'Джулія переконується, що кожен кандидат отримує досвід світового рівня — незалежно від результату. Вона цікавиться людьми, задає питання про «чому» а не лише «що», і особливо уважна до культурного вписування. Якщо тобі важлива атмосфера всередині команди — говори з нею.',
+      traits: ['Warm', 'Cultural fit', 'Big-picture']
+    },
+    {
+      id: 'bogdan',
+      name: 'Богдан Годлюк',
+      role: 'Founder & CEO',
+      style: 'Vision & Depth',
+      isCeo: true,
+      agentId: 'agent_2601kqn2kaeve89vz9qtjwtc1v45',
+      photo: BASE + '%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD-CEO.png',
+      tag: 'CEO · Special Access',
+      desc: 'Богдан особисто проводить фінальні співбесіди для ролей у Marketing — тому що ця позиція стосується того, як світ сприймає ARCA. Очікуй розмову про ідеї, амбіції та бачення майбутнього бренду. Він не шукає виконавців. Він шукає людину, яка хоче будувати щось значуще разом.',
+      traits: ['Visionary', 'Founder mindset', 'Bold questions']
+    }
+  ];
+
+  let expandedAvatar = null;
+
+  function buildAvatars(vacancyId) {
+    const isMarketing = (vacancyId === 'marketing-content-lead');
+    const track = document.getElementById('avatarsTrack');
+    if (!track) return;
+    track.innerHTML = AVATARS.map(av => {
+      const locked = av.isCeo && !isMarketing;
+      return `
+      <div class="av-card${av.isCeo ? ' ceo-card' : ''}${locked ? ' ceo-locked' : ''}" id="avCard_${av.id}" data-av-id="${av.id}" ${locked ? 'data-locked="true"' : ''}>
+        <div class="av-flip" id="avFlip_${av.id}">
+
+          <!-- FRONT -->
+          <div class="av-front">
+            <img class="av-front-img" src="${av.photo}" alt="${av.name}" loading="lazy">
+            ${av.isCeo ? `<div class="av-ceo-badge">${locked ? '🔒 Marketing Only' : '⭐ CEO Interview'}</div>` : ''}
+            <div class="av-style-badge">${av.style}</div>
+            <div class="av-front-info">
+              <div class="av-front-tap">${locked ? 'Not available →' : 'Tap to meet →'}</div>
+              <div class="av-front-name">${av.name}</div>
+              <div class="av-front-role">${av.role}</div>
+            </div>
+          </div>
+
+          <!-- BACK -->
+          <div class="av-back">
+            <button class="av-back-close" data-close-av="${av.id}">✕</button>
+            <div class="av-back-split">
+              <img class="av-back-photo" src="${av.photo}" alt="${av.name}">
+              <div class="av-back-content">
+                <div>
+                  <div class="av-back-tag">${av.tag}</div>
+                  <div class="av-back-name">${av.name}</div>
+                  <div class="av-back-role">${av.role}</div>
+                  <div class="av-back-divider"></div>
+                  <div class="av-back-desc">${av.desc}</div>
+                  <div class="av-back-traits">${av.traits.map(t=>`<span class="av-back-trait">${t}</span>`).join('')}</div>
+                </div>
+                <div>
+                  <button class="av-zoom-btn${av.isCeo?' ceo-btn':''}" data-enter-zoom="${av.id}">
+                    ${av.isCeo ? '⭐ Start CEO Interview →' : `Start Interview with ${av.name.split(' ')[0]} →`}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+    }).join('');
+
+    // Attach events via delegation
+    track.addEventListener('click', function(e) {
+      // 0. LOCKED CEO CARD — block and show toast
+      const lockedCard = e.target.closest('[data-locked="true"]');
+      if (lockedCard) {
+        e.stopPropagation();
+        showToast('Богдан personally interviews Marketing Lead candidates only.', false);
+        return;
+      }
+
+      // 1. START INTERVIEW button
+      const zoomBtn = e.target.closest('[data-enter-zoom]');
+      if (zoomBtn) {
+        e.stopPropagation();
+        enterZoom(zoomBtn.dataset.enterZoom);
+        return;
+      }
+      // 2. CLOSE button (✕)
+      const closeBtn = e.target.closest('[data-close-av]');
+      if (closeBtn) {
+        e.stopPropagation();
+        closeAvatar(e, closeBtn.dataset.closeAv);
+        return;
+      }
+      // 3. Click on card — toggle flip
+      // (av-back has pointer-events:none when not expanded, so only front clicks reach here)
+      const card = e.target.closest('[data-av-id]');
+      if (card) toggleAvatar(card.dataset.avId);
+    });
+  }
+
+  function toggleAvatar(id) {
+    const track = document.getElementById('avatarsTrack');
+    const card = document.getElementById(`avCard_${id}`);
+    if (expandedAvatar === id) {
+      card.classList.remove('expanded', 'selected');
+      track.classList.remove('has-expanded');
+      expandedAvatar = null;
+      return;
+    }
+    // close previous
+    if (expandedAvatar) {
+      const prev = document.getElementById(`avCard_${expandedAvatar}`);
+      if (prev) prev.classList.remove('expanded', 'selected');
+    }
+    card.classList.add('expanded', 'selected');
+    track.classList.add('has-expanded');
+    expandedAvatar = id;
+    setTimeout(() => card.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
+  }
+
+  function closeAvatar(e, id) {
+    e.stopPropagation();
+    const track = document.getElementById('avatarsTrack');
+    const card = document.getElementById(`avCard_${id}`);
+    if (card) card.classList.remove('expanded', 'selected');
+    track.classList.remove('has-expanded');
+    if (expandedAvatar === id) expandedAvatar = null;
+  }
+
+  // ESC to close avatar
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && expandedAvatar) {
+      const track = document.getElementById('avatarsTrack');
+      const card = document.getElementById(`avCard_${expandedAvatar}`);
+      if (card) card.classList.remove('expanded', 'selected');
+      if (track) track.classList.remove('has-expanded');
+      expandedAvatar = null;
+    }
+    // also close prep modal
+    if (e.key === 'Escape') closePrepModalDirect();
+  });
+
+  // ── VIDEO BASE for avatars ──
+  const AVATAR_BASE = 'https://builtwithai.pro/meethr/media/';
+
+  function avatarVideo(id, state) {
+    return AVATAR_BASE + id + '-' + state + '.mp4';
+  }
+
+  let currentAvatarId = null;
+  let currentVideoState = 'listening';
+
+  function enterZoom(id) {
+    const av = AVATARS.find(a => a.id === id);
+    if (!av) return;
+    currentAvatarId = id;
+
+    document.getElementById('s3AvatarName').textContent = av.name;
+    document.getElementById('s3AvatarRole').textContent = av.role + ' · ' + av.style;
+    const nameEl = document.getElementById('s3CandName');
+    if (nameEl) nameEl.textContent = session?.firstName || '';
+
+    // 1. set src NOW so browser buffers while transition plays
+    const vid = document.getElementById('s3Video');
+    if (vid) {
+      vid.crossOrigin = 'anonymous';
+      vid.src = avatarVideo(id, 'listening');
+      vid.preload = 'auto';
+      vid.load();
+    }
+
+    // 2. fade transition
+    const t = document.getElementById('transition');
+    t.classList.add('active');
+    setTimeout(() => {
+      document.getElementById('screen2').classList.remove('active');
+      document.getElementById('screen3').classList.add('active');
+      window.scrollTo(0, 0);
+      t.classList.remove('active');
+      // 3. screen is now visible — safe to play
+      if (vid) {
+        vid.play().catch(e => console.warn('video play failed:', e));
+      }
+      const lbl = document.getElementById('s3StateLabel');
+      if (lbl) lbl.textContent = '● Listening';
+    }, 400);
+  }
+
+  function setAvatarState(state) {
+    if (!currentAvatarId) return;
+    currentVideoState = state;
+    const vid = document.getElementById('s3Video');
+    if (!vid) return;
+    const labels = { listening: '● Listening', speaking: '● Speaking', typing: '⌨ Typing' };
+    const lbl = document.getElementById('s3StateLabel');
+    if (lbl) lbl.textContent = labels[state] || '';
+    vid.style.opacity = '0';
+    setTimeout(() => {
+      vid.src = avatarVideo(currentAvatarId, state);
+      vid.load();
+      vid.play().catch(()=>{});
+      vid.style.opacity = '1';
+    }, 200);
+  }
+
+  function backToAvatars(e) {
+    if (e) e.preventDefault();
+    stopStatePoll();
+    if (elWidget) {
+      if (elWidget._observer) elWidget._observer.disconnect();
+      elWidget.remove();
+      elWidget = null;
+    }
+    const vid = document.getElementById('s3Video');
+    if (vid) { vid.pause(); vid.src = ''; }
+    currentAvatarId = null;
+    const t = document.getElementById('transition');
+    t.classList.add('active');
+    setTimeout(() => {
+      document.getElementById('screen3').classList.remove('active');
+      document.getElementById('screen2').classList.add('active');
+      t.classList.remove('active');
+      // instant jump - no scroll animation through hero
+      const cta = document.getElementById('ctaSection');
+      if (cta) cta.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }, 400);
+  }
+
+  let elWidget = null;
+
+  // ── ElevenLabs API key (server-side ideally, here for client fetch) ──
+  const EL_API_KEY = 'sk_fb0a5442927a47068849902de2302e0a087ff5631d69e806';
+
+  // Dedup флаг — щоб saveInterviewAndTriggerQA викликалась тільки раз на дзвінок
+  let _qaFired = false;
+
+  // n8n webhook — замінити на реальний після створення workflow
+  const N8N_QA_WEBHOOK = 'https://n8n.srv1421181.hstgr.cloud/webhook/meethr-qa';
+
+  // Отримати conversation_id останньої розмови агента
+  async function getLatestConversationId(agentId) {
+    try {
+      const res = await fetch(
+        `https://api.elevenlabs.io/v1/convai/conversations?agent_id=${agentId}&page_size=1`,
+        { headers: { 'xi-api-key': EL_API_KEY } }
+      );
+      const data = await res.json();
+      const conv = data?.conversations?.[0];
+      console.log('Latest conversation:', conv?.conversation_id, 'status:', conv?.status);
+      return conv?.conversation_id || null;
+    } catch(e) {
+      console.error('getLatestConversationId error:', e);
+      return null;
+    }
+  }
+
+  // Зберегти запис інтерв'ю в Supabase + тригернути n8n
+  async function saveInterviewAndTriggerQA(avatarId, avatarName, agentId) {
+    // Dedup — викликаємо тільки один раз на сесію
+    if (_qaFired) {
+      console.log('saveInterviewAndTriggerQA already fired — skipping duplicate');
+      return;
+    }
+    _qaFired = true;
+    // Скидаємо флаг через 30 секунд (якщо кандидат захоче зробити ще один дзвінок)
+    setTimeout(() => { _qaFired = false; }, 30000);
+    try {
+      if (!session?.id) {
+        const stored = sessionStorage.getItem('arca_candidate');
+        if (stored) session = JSON.parse(stored);
+      }
+      if (!session?.id) {
+        console.warn('No session id — cannot save interview');
+        return;
+      }
+
+      // 1. Отримати conversation_id
+      const convId = await getLatestConversationId(agentId);
+      console.log('conversation_id:', convId);
+
+      // 2. INSERT запис в interviews
+      const insertRes = await sbFetch('/rest/v1/interviews', {
+        method: 'POST',
+        body: JSON.stringify({
+          candidate_id: session.id,
+          avatar_used: avatarId,
+          elevenlabs_conversation_id: convId || null,
+          created_at: new Date().toISOString()
+        })
+      });
+      console.log('Interview record inserted:', insertRes.status);
+
+      // 3. UPDATE candidates status → interviewed
+      await sbFetch(`/rest/v1/candidates?id=eq.${session.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: 'interviewed' })
+      });
+      console.log('Status updated to interviewed ✅');
+
+      // 4. Тригер n8n QA workflow (fire-and-forget)
+      if (convId) {
+        fetch(N8N_QA_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            conversation_id: convId,
+            agent_id: agentId,
+            candidate_id: session.id,
+            avatar_used: avatarId,
+            avatar_name: avatarName,
+            vacancy_id: session.vacancy_id || null,
+            candidate_name: ((session.firstName || '') + ' ' + (session.lastName || '')).trim()
+          })
+        }).catch(e => console.warn('n8n trigger failed (non-critical):', e));
+      }
+
+      // 5. UI feedback
+      const zoomBtn = document.getElementById('zoomAccessBtn');
+      if (zoomBtn) {
+        zoomBtn.textContent = '🎉 ZOOM access unlocked! →';
+        zoomBtn.style.color = '#C9A84C';
+        zoomBtn.style.borderBottomColor = '#C9A84C';
+        zoomBtn.disabled = false;
+      }
+
+    } catch(e) {
+      console.error('saveInterviewAndTriggerQA error:', e);
+      // Fallback: хоча б оновити статус
+      try {
+        await sbFetch(`/rest/v1/candidates?id=eq.${session.id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: 'interviewed' })
+        });
+      } catch(_) {}
+    }
+  }
+
+  // ── SCREEN 7 — POST INTERVIEW ──
+  function showPostInterviewScreen(avatarName) {
+    const firstName = session?.firstName || 'there';
+    const el = document.getElementById('postInterviewScreen');
+    if (!el) return;
+    document.getElementById('postName').textContent = firstName;
+    document.getElementById('postAvatar').textContent = avatarName || 'your interviewer';
+    el.style.display = 'flex';
+    el.scrollTop = 0;
+    // ESC to close
+    document._postEscHandler = (e) => { if (e.key === 'Escape') closePostInterviewScreen(); };
+    document.addEventListener('keydown', document._postEscHandler);
+  }
+
+  function closePostInterviewScreen() {
+    const el = document.getElementById('postInterviewScreen');
+    if (!el) return;
+    el.style.display = 'none';
+    if (document._postEscHandler) {
+      document.removeEventListener('keydown', document._postEscHandler);
+      document._postEscHandler = null;
+    }
+  }
+
+  // Legacy wrapper — залишаємо для сумісності з zoom секцією
+  async function updateInterviewStatus() {
+    // Викликається з zoom (Team Interview) — там немає одного агента,
+    // тому зберігаємо без conversation_id
+    try {
+      if (!session?.id) {
+        const stored = sessionStorage.getItem('arca_candidate');
+        if (stored) session = JSON.parse(stored);
+      }
+      if (!session?.id) return;
+      await sbFetch(`/rest/v1/candidates?id=eq.${session.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: 'interviewed' })
+      });
+      console.log('Status updated to interviewed (zoom) ✅');
+      const zoomBtn = document.getElementById('zoomAccessBtn');
+      if (zoomBtn) {
+        zoomBtn.textContent = '🎉 ZOOM access unlocked! →';
+        zoomBtn.style.color = '#C9A84C';
+        zoomBtn.style.borderBottomColor = '#C9A84C';
+        zoomBtn.disabled = false;
+      }
+    } catch(e) {
+      console.error('updateInterviewStatus error:', e);
+    }
+  }
+  let statePollInterval = null;
+  let lastSpeakingState = null;
+
+  function startStatePoll(av) {
+    stopStatePoll();
+    statePollInterval = setInterval(() => {
+      if (!elWidget) { stopStatePoll(); return; }
+      const shadow = elWidget.shadowRoot;
+      if (!shadow) return;
+
+      // ElevenLabs widget shows an animated orb/button with data-state or aria attributes
+      // Strategy: look for any element that indicates "speaking" vs "listening"
+      // Check 1: button aria-label changes
+      const mainBtn = shadow.querySelector('button[data-state], button[aria-label]');
+      const ariaLabel = mainBtn?.getAttribute('aria-label') || '';
+      const dataState = mainBtn?.getAttribute('data-state') || '';
+
+      // Check 2: look for any element with class containing "speaking" or "active"
+      const speakingEl = shadow.querySelector('[class*="speaking"], [class*="agent-talking"], [data-speaking="true"]');
+
+      // Check 3: look for animated elements that only show when agent speaks
+      const allText = shadow.textContent || '';
+      // Universal detection for full + compact modes
+      const isSpeakingText = allText.includes('Talk to interrupt');
+      const avatarImg = shadow.querySelector('[class*="_avatarImage_"]');
+      const avatarStyle = avatarImg?.getAttribute('style') || '';
+      const opacityMatch = avatarStyle.match(/opacity:\s*([\d.]+)/);
+      const avatarOpacity = opacityMatch ? parseFloat(opacityMatch[1]) : 0.5;
+      const isSpeaking = isSpeakingText || avatarOpacity > 0.7;
+
+      const newState = isSpeaking ? 'speaking' : 'listening';
+
+      if (newState !== lastSpeakingState) {
+        lastSpeakingState = newState;
+        setAvatarState(newState);
+        const statusEl = document.getElementById('s3Status');
+        if (statusEl) {
+          statusEl.textContent = newState === 'speaking'
+            ? av.name + ' is speaking...'
+            : 'Listening to you...';
+        }
+      }
+    }, 300);
+  }
+
+  function stopStatePoll() {
+    if (statePollInterval) {
+      clearInterval(statePollInterval);
+      statePollInterval = null;
+      lastSpeakingState = null;
+    }
+  }
+
+  function startInterview() {
+    const av = AVATARS.find(a => a.id === currentAvatarId);
+    if (!av?.agentId) {
+      document.getElementById('s3Status').innerHTML = 'Agent not configured yet.';
+      return;
+    }
+
+    const btn = document.getElementById('s3StartBtn');
+    const wrap = document.getElementById('s3ELWidget');
+
+    // remove old widget if exists
+    if (elWidget) { elWidget.remove(); elWidget = null; }
+
+    // create official ElevenLabs widget element
+    const widget = document.createElement('elevenlabs-convai');
+    widget.setAttribute('agent-id', av.agentId);
+
+    // Override ElevenLabs CSS variables to match ARCA design
+    widget.style.cssText = `
+      width:100%;
+      display:block;
+      --el-bg-color: #0D0D1A;
+      --el-text-color: #ffffff;
+      --el-border-color: rgba(201,168,76,0.3);
+      --el-border-radius: 16px;
+      --el-btn-color: #C9A84C;
+      --el-btn-text-color: #0A0A0F;
+      --el-btn-radius: 8px;
+      --el-focus-color: #C9A84C;
+    `;
+
+    wrap.appendChild(widget);
+    elWidget = widget;
+
+    // official ElevenLabs widget events
+    widget.addEventListener('elevenlabs-convai:call-started', () => {
+      document.getElementById('s3Status').textContent = av.name + ' is ready. Start speaking.';
+      setAvatarState('listening');
+      if (btn) btn.style.display = 'none';
+      _qaFired = false; // скидаємо для нового дзвінка
+      // start polling shadow DOM for speaking state
+      startStatePoll(av);
+    });
+
+    widget.addEventListener('elevenlabs-convai:call-ended', () => {
+      stopStatePoll();
+      document.getElementById('s3Status').textContent = 'Interview ended. Thank you!';
+      // Зберігаємо інтерв'ю + тригеримо QA
+      saveInterviewAndTriggerQA(av.id, av.name, av.agentId);
+      setAvatarState('listening');
+      if (btn) { btn.style.display = 'block'; btn.textContent = '▶ Start Interview'; }
+      // Показуємо Screen 7 через 1.5 секунди
+      setTimeout(() => showPostInterviewScreen(av.name), 1500);
+    });
+
+    // auto-click widget start button + setup MutationObserver
+    setTimeout(() => {
+      const shadow = widget.shadowRoot;
+      if (!shadow) return;
+
+      // auto-click start
+      const startBtn = shadow.querySelector('button');
+      if (startBtn) startBtn.click();
+
+      // intercept End button click in shadow DOM — fallback якщо call-ended не спрацював
+      const endBtnObserver = new MutationObserver(() => {
+        const endBtn = shadow.querySelector('button[title="End"]');
+        if (endBtn && !endBtn._intercepted) {
+          endBtn._intercepted = true;
+          endBtn.addEventListener('click', () => {
+            console.log('End button intercepted → saving interview');
+            setTimeout(() => saveInterviewAndTriggerQA(av.id, av.name, av.agentId), 1200);
+            setTimeout(() => showPostInterviewScreen(av.name), 2000);
+          });
+        }
+      });
+      endBtnObserver.observe(shadow, { childList: true, subtree: true });
+
+      // inject CSS to hide "Powered by" and feedback buttons
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        [class*="_poweredBy_"] { display: none !important; }
+        [class*="_feedback_"] { display: none !important; }
+        [class*="_minimize_"] { display: none !important; }
+      `;
+      shadow.appendChild(styleEl);
+
+      // Universal: works for both full (text) and compact (avatar opacity) modes
+      const detectSpeaking = () => {
+        // Method 1 (full mode): "Talk to interrupt" text
+        const allText = shadow.textContent || '';
+        if (allText.includes('Talk to interrupt')) return true;
+
+        // Method 2 (compact mode): avatarImage opacity > 0.7 means agent is active/speaking
+        const avatarImg = shadow.querySelector('[class*="_avatarImage_"]');
+        if (avatarImg) {
+          const style = avatarImg.getAttribute('style') || '';
+          const opacityMatch = style.match(/opacity:\s*([\d.]+)/);
+          if (opacityMatch) {
+            const opacity = parseFloat(opacityMatch[1]);
+            if (opacity > 0.7) return true;  // speaking = high opacity
+          }
+        }
+
+        // Method 3: canvas transform scale — speaking makes it pulse larger
+        const canvas = shadow.querySelector('canvas');
+        if (canvas) {
+          const parentStyle = canvas.parentElement?.getAttribute('style') || '';
+          const scaleMatch = parentStyle.match(/scale\(([\d.]+)\)/);
+          if (scaleMatch && parseFloat(scaleMatch[1]) > 1.02) return true;
+        }
+
+        return false;
+      };
+
+      const observer = new MutationObserver(() => {
+        const isSpeaking = detectSpeaking();
+        const newState = isSpeaking ? 'speaking' : 'listening';
+        if (newState !== lastSpeakingState) {
+          lastSpeakingState = newState;
+          setAvatarState(newState);
+          const statusEl = document.getElementById('s3Status');
+          if (statusEl) {
+            statusEl.textContent = newState === 'speaking'
+              ? av.name + ' is speaking...'
+              : 'Listening to you...';
+          }
+        }
+      });
+
+      observer.observe(shadow, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+      // save ref to disconnect later
+      elWidget._observer = observer;
+    }, 1000);
+
+    document.getElementById('s3Status').textContent = 'Connecting to ' + av.name + '...';
+  }
+
+  function endInterview() {
+    if (elWidget) {
+      const shadowBtn = elWidget.shadowRoot?.querySelector('button[aria-label*="end"], button[aria-label*="stop"]');
+      if (shadowBtn) shadowBtn.click();
+    }
+    setAvatarState('listening');
+    const btn = document.getElementById('s3StartBtn');
+    if (btn) { btn.style.display = 'block'; btn.textContent = '▶ Start Interview'; }
+    document.getElementById('s3Status').textContent = 'Interview ended.';
+  }
+
+  // ── SAVE FOR LATER ──
+  function saveForLater() {
+    try {
+      const data = {
+        name: session?.firstName || '',
+        vacancy: session?.vacancy_id || 'marketing-content-lead',
+        savedAt: new Date().toISOString(),
+        url: window.location.href
+      };
+      localStorage.setItem('arca_saved', JSON.stringify(data));
+      showToast('Збережено! Посилання на цю сторінку залишиться у вашому браузері.', true);
+    } catch(e) {
+      // fallback — copy URL
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Посилання скопійовано в буфер обміну!', true);
+      }).catch(() => {
+        showToast('Відкрийте цю сторінку пізніше, щоб продовжити.', true);
+      });
+    }
+  }
+
+  init();
+</script>
+<!-- ═══════════════════════════════════
+     POST INTERVIEW OVERLAY
+════════════════════════════════════ -->
+<div id="postInterviewScreen" style="display:none;position:fixed;inset:0;z-index:99999;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(10,10,15,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow-y:scroll;overflow-x:hidden;padding:64px 24px 80px;scrollbar-width:none;-ms-overflow-style:none;">
+
+  <style>#postInterviewScreen::-webkit-scrollbar{display:none;}</style>
+
+  <!-- Close button — highest z-index, always on top -->
+  <button id="postCloseBtn" onclick="closePostInterviewScreen()" style="position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(30,30,40,0.95);border:1px solid rgba(255,255,255,0.15);color:#8E8EA0;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:100000;line-height:1;box-shadow:0 4px 20px rgba(0,0,0,0.5);" onmouseover="this.style.background='rgba(201,168,76,0.2)';this.style.borderColor='rgba(201,168,76,0.5)';this.style.color='#C9A84C'" onmouseout="this.style.background='rgba(30,30,40,0.95)';this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='#8E8EA0'">✕</button>
+
+  <!-- BG glow -->
+  <div style="position:fixed;top:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.08) 0%,transparent 70%);pointer-events:none;z-index:0;"></div>
+
+  <!-- ARCA logo -->
+  <div style="position:relative;z-index:1;margin-bottom:32px;opacity:0.6;">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <polygon points="16,2 30,28 2,28" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+      <polygon points="16,9 24,26 8,26" fill="rgba(201,168,76,0.1)" stroke="#C9A84C" stroke-width="0.8" stroke-dasharray="2,2"/>
+    </svg>
+  </div>
+
+  <!-- Заголовок -->
+  <div style="position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:#C9A84C;text-transform:uppercase;margin-bottom:16px;">Interview Complete</div>
+  <h1 style="position:relative;z-index:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8vw,64px);letter-spacing:2px;color:#fff;text-align:center;line-height:1;margin-bottom:20px;">
+    Great conversation,<br><span id="postName" style="color:#C9A84C;">there</span>.
+  </h1>
+
+  <!-- Summary -->
+  <p style="position:relative;z-index:1;font-size:16px;color:#8E8EA0;text-align:center;max-width:480px;line-height:1.7;margin-bottom:48px;">
+    You just completed your AI interview with <span id="postAvatar" style="color:#C0C0C8;font-weight:500;">your interviewer</span>. Your answers have been recorded and are being reviewed.
+  </p>
+
+  <!-- Наступні кроки -->
+  <div style="position:relative;z-index:1;width:100%;max-width:480px;background:#0D0D1A;border:1px solid rgba(201,168,76,0.18);border-radius:20px;padding:28px;margin-bottom:24px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:20px;">What happens next</div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C9A84C;">1</div>
+        <div>
+          <div style="font-weight:600;color:#fff;margin-bottom:3px;font-size:14px;">AI analysis in progress</div>
+          <div style="font-size:13px;color:#8E8EA0;line-height:1.5;">Your conversation is being scored across 4 criteria by our system.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C9A84C;">2</div>
+        <div>
+          <div style="font-weight:600;color:#fff;margin-bottom:3px;font-size:14px;">Oleksiy will reach out within 24h</div>
+          <div style="font-size:13px;color:#8E8EA0;line-height:1.5;">Our Talent Curator personally reviews every interview and contacts you directly.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C9A84C;">3</div>
+        <div>
+          <div style="font-weight:600;color:#fff;margin-bottom:3px;font-size:14px;">Track your status in the app</div>
+          <div style="font-size:13px;color:#8E8EA0;line-height:1.5;">See your interview results, score, and application progress anytime.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oleksiy контакт -->
+  <div style="position:relative;z-index:1;width:100%;max-width:480px;background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.02));border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:24px;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <div style="width:52px;height:52px;border-radius:50%;border:2px solid rgba(201,168,76,0.4);overflow:hidden;flex-shrink:0;">
+        <img src="https://builtwithai.pro/meethr/media/%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9%20(Head%20of%20Business%20Development).jpg"
+          style="width:100%;height:100%;object-fit:cover;object-position:center top;"
+          onerror="this.parentElement.innerHTML='<div style=&quot;width:100%;height:100%;background:linear-gradient(135deg,#1a1a3a,#0D0D1A);display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:18px;color:#C9A84C;&quot;>ОХ</div>'">
+      </div>
+      <div>
+        <div style="font-weight:700;color:#fff;font-size:15px;">Oleksiy Khvylya</div>
+        <div style="font-size:12px;color:#8E8EA0;margin-top:2px;">Head of Business Development · ARCA Robotics</div>
+        <div style="display:flex;align-items:center;gap:5px;margin-top:4px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:#4DFF9E;animation:pulse 2s infinite;"></div>
+          <span style="font-size:11px;color:#4DFF9E;">Online</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:#8E8EA0;line-height:1.6;margin-bottom:16px;">
+      Oleksiy personally reviews every interview. He'll reach out to discuss your results and the next steps.
+    </p>
+    <a href="https://t.me/oleks_khvylya" target="_blank" rel="noopener"
+      style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:#C9A84C;border-radius:12px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:#0A0A0F;transition:opacity 0.2s;"
+      onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.322 14.4l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.826.159z"/></svg>
+      WRITE TO OLEKSIY
+    </a>
+  </div>
+
+  <!-- PWA банер -->
+  <div style="position:relative;z-index:1;width:100%;max-width:480px;background:#0D0D1A;border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:24px;margin-bottom:48px;display:flex;align-items:center;gap:16px;">
+    <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+      </svg>
+    </div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:3px;">Track your application</div>
+      <div style="font-size:12px;color:#8E8EA0;line-height:1.4;">Install the ARCA app to see your score, results and stay in touch with Oleksiy.</div>
+    </div>
+    <a href="https://builtwithai.pro/meethr-pwa/" target="_blank"
+      style="flex-shrink:0;padding:8px 16px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:#C9A84C;white-space:nowrap;">
+      OPEN APP
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
