@@ -10,13 +10,13 @@
 <meta property="og:url"         content="https://builtwithai.pro/meethr/">
 <meta property="og:title"       content="ARCA Robotics — AI Interview Portal">
 <meta property="og:description" content="Pass your AI interview with ARCA Robotics. Talk to our AI recruiter and get a response within 24 hours.">
-<meta property="og:image"       content="https://builtwithai.pro/meethr/media/OFFER-HERO.png">
+<meta property="og:image"       content="https://builtwithai.pro/meethr/media/OFFER-HERO.png?v=3">
 <meta property="og:image:width"  content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="ARCA Robotics — AI Interview Portal">
 <meta name="twitter:description" content="Pass your AI interview with ARCA Robotics. Talk to our AI recruiter and get a response within 24 hours.">
-<meta name="twitter:image"       content="https://builtwithai.pro/meethr/media/OFFER-HERO.png">
+<meta name="twitter:image"       content="https://builtwithai.pro/meethr/media/OFFER-HERO.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1981,7 +1981,7 @@
             onmouseover="this.style.background='rgba(0,0,0,0.05)'"
             onmouseout="this.style.background='none'">
             <div style="width:56px;height:56px;border-radius:50%;background:#1d1d1f;margin:0 auto 8px;overflow:hidden;box-shadow:0 0 0 0px #C9A84C;transition:box-shadow 0.3s;" id="zoom-ring-bogdan">
-              <img src="https://builtwithai.pro/meethr/media/OFFER-HERO.png" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+              <img src="https://builtwithai.pro/meethr/media/OFFER-HERO.png?v=3" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
             </div>
             <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#1d1d1f;">Богдан</div>
             <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6e6e73;letter-spacing:0.1em;">FOUNDER & CEO</div>
@@ -2223,6 +2223,13 @@
         if (session?.id) { goToScreen2(); return; }
       } catch(e) { localStorage.removeItem('arca_candidate'); }
     }
+    if (urlToken) await loadCandidateByToken(urlToken);
+    const emailParam = params.get('email');
+    if (emailParam) {
+      document.getElementById('email').value = emailParam;
+      document.getElementById('loginEmail').value = emailParam;
+    }
+  }
     if (urlToken) await loadCandidateByToken(urlToken);
     const emailParam = params.get('email');
     if (emailParam) {
