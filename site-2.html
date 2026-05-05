@@ -2216,6 +2216,14 @@
 
   // ── INIT ──
   async function init() {
+    // Відновити сесію з localStorage
+    const stored = localStorage.getItem('arca_candidate');
+    if (stored) {
+      try {
+        session = JSON.parse(stored);
+        if (session?.id) { goToScreen2(); return; }
+      } catch(e) { localStorage.removeItem('arca_candidate'); }
+    }
     if (urlToken) await loadCandidateByToken(urlToken);
     const emailParam = params.get('email');
     if (emailParam) {
