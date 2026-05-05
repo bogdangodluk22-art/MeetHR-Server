@@ -1210,7 +1210,7 @@
     try {
       // ensure session is loaded
       if (!session?.id) {
-        const stored = sessionStorage.getItem('arca_candidate');
+        const stored = localStorage.getItem('arca_candidate');
         if (stored) session = JSON.parse(stored);
       }
       if (!session?.id) {
@@ -2318,7 +2318,7 @@
       }
       const final = candidateData || (Array.isArray(result) ? result[0] : result);
       session = { email, firstName, lastName, id: final?.id || candidateData?.id, vacancy_id: candidateData?.vacancy_id || final?.vacancy_id || null };
-      sessionStorage.setItem('arca_candidate', JSON.stringify(session));
+      localStorage.setItem('arca_candidate', JSON.stringify(session));
       showSuccess(firstName);
     } catch(e) { showToast('Something went wrong. Please try again.', false); console.error(e); }
     finally { btn.classList.remove('loading'); }
@@ -2341,7 +2341,7 @@
       if (c.password_hash !== hash) { setErr('loginPasswordErr', true); showToast('Incorrect password.', false); return; }
       await sbFetch(`/rest/v1/candidates?id=eq.${c.id}`, { method:'PATCH', body:JSON.stringify({last_login:new Date().toISOString()}) });
       session = { email:c.email, firstName:c.first_name, lastName:c.last_name, id:c.id, vacancy_id:c.vacancy_id };
-      sessionStorage.setItem('arca_candidate', JSON.stringify(session));
+      localStorage.setItem('arca_candidate', JSON.stringify(session));
       showSuccess(c.first_name || email.split('@')[0]);
     } catch(e) { showToast('Something went wrong.', false); }
     finally { btn.classList.remove('loading'); }
@@ -2373,7 +2373,7 @@
 
   // ── SCREEN ROUTING ──
   function goToScreen2() {
-    session = JSON.parse(sessionStorage.getItem('arca_candidate') || '{}');
+    session = JSON.parse(localStorage.getItem('arca_candidate') || '{}');
     transitionTo(() => {
       document.getElementById('screen1').classList.remove('active');
       document.getElementById('screen2').classList.add('active');
@@ -3259,7 +3259,7 @@
     setTimeout(() => { _qaFired = false; }, 30000);
     try {
       if (!session?.id) {
-        const stored = sessionStorage.getItem('arca_candidate');
+        const stored = localStorage.getItem('arca_candidate');
         if (stored) session = JSON.parse(stored);
       }
       if (!session?.id) {
@@ -3358,7 +3358,7 @@
     // тому зберігаємо без conversation_id
     try {
       if (!session?.id) {
-        const stored = sessionStorage.getItem('arca_candidate');
+        const stored = localStorage.getItem('arca_candidate');
         if (stored) session = JSON.parse(stored);
       }
       if (!session?.id) return;
