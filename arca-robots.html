@@ -1593,26 +1593,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
 }
 .cp-apply-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
 
-/* Portal reveal */
-.cp-portal-reveal-link {
-  display: block; margin-top: 14px; background: none; border: none;
-  color: rgba(255,255,255,0.35); font-size: 13px; font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.05em; cursor: pointer; text-decoration: underline;
-  text-underline-offset: 3px; transition: color 0.2s; padding: 0;
-}
-.cp-portal-reveal-link:hover { color: var(--gold); }
-.cp-light-zone .cp-portal-reveal-link { color: rgba(0,0,0,0.3); }
-.cp-light-zone .cp-portal-reveal-link:hover { color: var(--gold); }
-.cp-portal-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: transparent; color: var(--gold);
-  border: 1px solid var(--gold); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.1em; padding: 12px 28px; border-radius: 2px;
-  text-decoration: none; text-transform: uppercase; margin-top: 12px;
-  transition: background 0.2s, color 0.2s;
-}
-.cp-portal-btn:hover { background: var(--gold); color: #0A0A0F; }
-
 /* Footer */
 .cp-footer {
   display: flex; align-items: center; justify-content: space-between;
@@ -5471,9 +5451,9 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(0)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
+  </div>
+  <footer class="cp-footer">
     <a href="#" class="cp-footer-logo" onclick="closeCareerPage(0)">ARC<span>A</span></a>
     <span class="cp-footer-copy">© 2026 ARCA Robotics</span>
   </footer>
@@ -5574,8 +5554,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(1)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
   </div>
   <footer class="cp-footer">
@@ -5668,8 +5646,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(2)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
   </div>
   <footer class="cp-footer">
@@ -5767,8 +5743,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(3)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
   </div>
   <footer class="cp-footer">
@@ -5857,8 +5831,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(4)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
   </div>
   <footer class="cp-footer">
@@ -5941,8 +5913,6 @@ body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56p
     <div class="cp-apply-wrap reveal">
       <h2 class="cp-apply-title" data-i18n="cp_apply_title">Ready to build?</h2>
       <button class="cp-apply-btn" onclick="openApplyModal(5)" data-i18n="cp_apply_btn">Apply for This Role</button>
-      <button class="cp-portal-reveal-link" onclick="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">Already applied?</button>
-      <a href="https://builtwithai.pro/meethr/portal" target="_blank" class="cp-portal-btn" style="display:none">Go to My Portal &#8594;</a>
     </div>
   </div>
   <footer class="cp-footer">
@@ -8211,7 +8181,7 @@ window.submitApplication = async function() {
 // ── Success screen inside the modal ──
 window.showApplySuccess = function(firstName, roleTitle) {
   const box = document.getElementById('apply-modal-box');
-  const site2Url = 'https://builtwithai.pro/meethr/portal';
+  const site2Url = '#'; // ← ЗМІНИТИ НА РЕАЛЬНИЙ URL (напр. https://builtwithai.pro/meethr/)
   box.innerHTML =
     '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;text-align:center;padding:48px 32px;">' +
       '<div style="width:64px;height:64px;border-radius:50%;border:2px solid #c9a84c;display:flex;align-items:center;justify-content:center;margin-bottom:28px;">' +
