@@ -1587,7 +1587,7 @@
           <span class="btn-arrow">→</span>
         </button>
         <p class="portal-note">By continuing you agree to ARCA's <a href="#">Privacy Policy</a>.<br>Your data is encrypted and never shared.</p>
-        <div class="login-row">Already have an account? <a href="#" onclick="showLogin()">Sign in</a></div>
+        <div class="login-row">Already have an account? <a href="javascript:void(0)" onclick="showLogin()">Sign in</a></div>
       </div>
 
       <!-- LOGIN FORM -->
@@ -1616,7 +1616,7 @@
           <span class="btn-text">Sign In & Continue</span>
           <span class="btn-arrow">→</span>
         </button>
-        <div class="login-row" style="margin-top:20px;">New here? <a href="#" onclick="showRegister()">Create account</a></div>
+        <div class="login-row" style="margin-top:20px;">New here? <a href="javascript:void(0)" onclick="showRegister()">Create account</a></div>
       </div>
 
       <!-- SUCCESS -->
@@ -2222,21 +2222,6 @@
         session = JSON.parse(stored);
         if (session?.id) { goToScreen2(); return; }
       } catch(e) { localStorage.removeItem('arca_candidate'); }
-    }
-    if (urlToken) await loadCandidateByToken(urlToken);
-    const emailParam = params.get('email');
-    if (emailParam) {
-      document.getElementById('email').value = emailParam;
-      document.getElementById('loginEmail').value = emailParam;
-    }
-  }
-    if (urlToken) await loadCandidateByToken(urlToken);
-    const emailParam = params.get('email');
-    if (emailParam) {
-      document.getElementById('email').value = emailParam;
-      document.getElementById('loginEmail').value = emailParam;
-    }
-  }
     }
     if (urlToken) await loadCandidateByToken(urlToken);
     const emailParam = params.get('email');
